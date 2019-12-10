@@ -1,0 +1,40 @@
+package ${package}.${moduleName}.pojo;
+
+import java.io.Serializable;
+import java.util.Date;
+import lombok.Data;
+import io.swagger.annotations.ApiModelProperty;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+import club.newepoch.db.interfaces.TableBind;
+
+/**
+ * 成都一方思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${comments}
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Data
+@TableBind(dsName = Constants.DS_WRITE)
+public class ${className} implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    #foreach ($column in $columns)
+    /**
+     * $column.comments
+     */
+    private $column.attrType $column.attrname;
+    #end
+}

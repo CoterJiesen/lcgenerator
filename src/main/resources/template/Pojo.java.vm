@@ -1,0 +1,49 @@
+package ${package}.${moduleName}.pojo;
+
+import java.io.Serializable;
+import java.util.Date;
+import lombok.Data;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+import club.newepoch.db.interfaces.TableBind;
+import club.newepoch.isf.pojo.BaseModeByKeyId;
+import ${package}.${moduleName}.common.constant.Constants;
+import club.newepoch.db.interfaces.TableCol;
+import club.newepoch.db.common.DbDataType;
+
+/**
+ * 成都一方思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className}持久化对象
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Data
+@TableBind(dsName = Constants.DS_WRITE)
+public class ${className} extends BaseModeByKeyId<${className}> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    #foreach ($column in $columns)
+/**
+     * $column.comments
+     */
+    #if($column.dataType == "datetime")
+@TableCol(dataType = DbDataType.DATE_TIME, maxLen = $column.characterMaximumLength, memo = "$column.comments")
+    #else
+@TableCol(dataType = DbDataType.$column.dataType.toUpperCase(), maxLen = $column.characterMaximumLength, memo = "$column.comments")
+    #end
+private $column.attrType $column.attrname;
+
+    #end
+}
