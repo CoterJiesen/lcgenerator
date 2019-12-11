@@ -44,9 +44,9 @@ public class GenUtils {
         templates.add("template/queryLogicImpl.java.vm");
         templates.add("template/ettLogic.java.vm");
         templates.add("template/ettLogicImpl.java.vm");
-//        templates.add("template/Service.java.vm");
-//        templates.add("template/ServiceImpl.java.vm");
-//        templates.add("template/Controller.java.vm");
+        templates.add("template/Service.java.vm");
+        templates.add("template/ServiceImpl.java.vm");
+        templates.add("template/Controller.java.vm");
 //        templates.add("template/menu.sql.vm");
         templates.add("template/Pojo.java.vm");
         templates.add("template/DTO.java.vm");
@@ -207,7 +207,7 @@ public class GenUtils {
         }
 
         if (template.contains("DTO.java.vm")) {
-            return packagePath + "DTO" + File.separator + className + "DTO.java";
+            return packagePath + "dto" + File.separator + className + "DTO.java";
         }
 
         if (template.contains("dao.java.vm")) {

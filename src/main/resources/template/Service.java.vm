@@ -1,20 +1,21 @@
 package ${package}.${moduleName}.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import ${mainPath}.common.utils.PageUtils;
-import ${package}.${moduleName}.entity.${className}Entity;
-
-import java.util.Map;
 
 /**
- * ${comments}
+ * 成都一方思致科技有限公司
  *
  * @author ${author}
- * @email ${email}
+ * @version V1.0
+ * 说明：${className}实体类对应service接口
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
  * @date ${datetime}
- */
-public interface ${className}Service extends IService<${className}Entity> {
+ **/
+public interface I${className}Service {
 
-    PageUtils queryPage(Map<String, Object> params);
 }
 
