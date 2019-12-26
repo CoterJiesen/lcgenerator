@@ -20,14 +20,14 @@
 	<select id="queryColumns" resultType="map">
 		select column_name columnName, data_type dataType, column_comment columnComment, column_key columnKey, extra, character_maximum_length from information_schema.columns
  			where table_name = #{tableName} and table_schema = (select database())
- 			 and COLUMNS.COLUMN_NAME != 'add_user_id'
- 			 and COLUMNS.COLUMN_NAME != 'add_time'
- 			 and COLUMNS.COLUMN_NAME != 'modify_user_id'
- 			 and COLUMNS.COLUMN_NAME != 'modify_time'
- 			 and COLUMNS.COLUMN_NAME != 'del_status'
- 			 and COLUMNS.COLUMN_NAME != 'tenant_id'
- 			 and COLUMNS.COLUMN_NAME != 'add_request_id'
- 			 and COLUMNS.COLUMN_NAME != 'modify_request_id'
+ 			 and columns.COLUMN_NAME != 'add_user_id'
+ 			 and columns.COLUMN_NAME != 'add_time'
+ 			 and columns.COLUMN_NAME != 'modify_user_id'
+ 			 and columns.COLUMN_NAME != 'modify_time'
+ 			 and columns.COLUMN_NAME != 'del_status'
+ 			 and columns.COLUMN_NAME != 'tenant_id'
+ 			 and columns.COLUMN_NAME != 'add_request_id'
+ 			 and columns.COLUMN_NAME != 'modify_request_id'
  			 order by ordinal_position
 	</select>
 	<!-- update by zhangqijie 2019/12/10 end -->
