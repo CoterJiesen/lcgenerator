@@ -29,6 +29,8 @@ import java.util.zip.ZipOutputStream;
  */
 public class GenUtils {
 
+    public static final String POINT = ".";
+
     /**
      * zqj
      *
@@ -129,11 +131,14 @@ public class GenUtils {
         map.put("hasBigDecimal", hasBigDecimal);
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package"));
-//        map.put("moduleName", config.getString("moduleName" ));
-        map.put("moduleName", null == moduleName ? "scf" : moduleName);
-//        map.put("author", config.getString("author"));
-        map.put("author", null == author ? "cdyfsz" : author);
-
+        map.put("moduleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
+        map.put("author", StringUtils.isEmpty(author) ? "cdyfsz" : author.trim());
+        if (StringUtils.isNotEmpty(moduleName) && moduleName.contains(POINT)){
+            String[] firstmoduleName = moduleName.split("\\.");
+            map.put("firstModuleName",firstmoduleName[0]);
+        }else{
+            map.put("firstModuleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
+        }
         map.put("email", config.getString("email"));
         map.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
         VelocityContext context = new VelocityContext(map);

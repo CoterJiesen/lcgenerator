@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 import club.newepoch.db.interfaces.TableBind;
 import club.newepoch.isf.pojo.BaseModeByKeyId;
-import ${package}.${moduleName}.common.constant.Constants;
+import ${package}.${firstModuleName}.common.constant.Constants;
 import club.newepoch.db.interfaces.TableCol;
 import club.newepoch.db.common.DbDataType;
 
