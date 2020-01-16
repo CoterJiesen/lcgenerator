@@ -207,7 +207,7 @@ public class GenUtils {
         }
 
         if (template.contains("DTO.java.vm")) {
-            return packagePath + "DTO" + File.separator + className + "DTO.java";
+            return packagePath + "dto" + File.separator + className + "DTO.java";
         }
 
         if (template.contains("dao.java.vm")) {

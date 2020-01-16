@@ -2,8 +2,10 @@ package ${package}.${moduleName}.dao.impl;
 
 import ${package}.${moduleName}.pojo.${className};
 import org.springframework.stereotype.Repository;
+import lombok.extern.slf4j.Slf4j;
 import ${package}.${moduleName}.dao.I${className}Dao;
 import com.cdyfsz.base.biz.svc.scf.base.dao.BaseDaoImpl;
+
 
 /**
  * 成都一方思致科技有限公司
@@ -19,6 +21,7 @@ import com.cdyfsz.base.biz.svc.scf.base.dao.BaseDaoImpl;
  * <p>
  * @date ${datetime}
  **/
+@Slf4j
 @Repository
 public class ${className}DaoImpl extends BaseDaoImpl<${className}> implements I${className}Dao {
 
