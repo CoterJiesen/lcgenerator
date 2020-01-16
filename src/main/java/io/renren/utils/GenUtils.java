@@ -44,9 +44,9 @@ public class GenUtils {
         templates.add("template/queryLogicImpl.java.vm");
         templates.add("template/ettLogic.java.vm");
         templates.add("template/ettLogicImpl.java.vm");
-//        templates.add("template/Service.java.vm");
-//        templates.add("template/ServiceImpl.java.vm");
-//        templates.add("template/Controller.java.vm");
+        templates.add("template/Service.java.vm");
+        templates.add("template/ServiceImpl.java.vm");
+        templates.add("template/Controller.java.vm");
 //        templates.add("template/menu.sql.vm");
         templates.add("template/Pojo.java.vm");
         templates.add("template/DTO.java.vm");
@@ -130,7 +130,7 @@ public class GenUtils {
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package"));
 //        map.put("moduleName", config.getString("moduleName" ));
-        map.put("moduleName", moduleName);
+        map.put("moduleName", null == moduleName ? "scf" : moduleName);
 //        map.put("author", config.getString("author"));
         map.put("author", null == author ? "cdyfsz" : author);
 
@@ -195,7 +195,7 @@ public class GenUtils {
     public static String getFileName(String template, String className, String packageName, String moduleName) {
         String packagePath = "main" + File.separator + "java" + File.separator;
         if (StringUtils.isNotBlank(packageName)) {
-            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
+            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName.replace(".",File.separator) + File.separator;
         }
 
 //        if (template.contains("Entity.java.vm" )) {
