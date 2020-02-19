@@ -1,6 +1,6 @@
 package ${package}.${moduleName}.dao.impl;
 
-import ${package}.${moduleName}.pojo.${className};
+import ${package}.${moduleName}.dao.pojo.${className};
 import org.springframework.stereotype.Repository;
 import lombok.extern.slf4j.Slf4j;
 import ${package}.${moduleName}.dao.I${className}Dao;

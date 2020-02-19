@@ -1,6 +1,6 @@
 package ${package}.${moduleName}.ettlogic;
 
-import ${package}.${moduleName}.pojo.${className};
+import ${package}.${moduleName}.dao.pojo.${className};
 import ${package}.${moduleName}.dao.I${className}Dao;
 import ${package}.${moduleName}.ettlogic.I${className}EttLogic;
 import com.cdyfsz.base.biz.svc.scf.base.ettlogic.BaseEttLogicImpl;

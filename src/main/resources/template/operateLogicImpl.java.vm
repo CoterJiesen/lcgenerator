@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.cdyfsz.base.biz.svc.scf.base.logic.BaseOperateLogicImpl;
 import ${package}.${moduleName}.ettlogic.I${className}EttLogic;
 import ${package}.${moduleName}.logic.I${className}OperateLogic;
-import ${package}.${moduleName}.pojo.${className};
+import ${package}.${moduleName}.dao.pojo.${className};
 /**
  * 成都一方思致科技有限公司
  *

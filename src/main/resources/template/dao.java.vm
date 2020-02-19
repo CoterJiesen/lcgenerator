@@ -1,6 +1,6 @@
 package ${package}.${moduleName}.dao;
 
-import ${package}.${moduleName}.pojo.${className};
+import ${package}.${moduleName}.dao.pojo.${className};
 import com.cdyfsz.base.biz.svc.scf.base.dao.IBaseDao;
 /**
  * 成都一方思致科技有限公司

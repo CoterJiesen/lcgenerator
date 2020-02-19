@@ -20,13 +20,6 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/**
- * 代码生成器   工具类
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月19日 下午11:40:24
- */
 public class GenUtils {
 
     public static final String POINT = ".";
@@ -133,10 +126,10 @@ public class GenUtils {
         map.put("package", config.getString("package"));
         map.put("moduleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
         map.put("author", StringUtils.isEmpty(author) ? "cdyfsz" : author.trim());
-        if (StringUtils.isNotEmpty(moduleName) && moduleName.contains(POINT)){
+        if (StringUtils.isNotEmpty(moduleName) && moduleName.contains(POINT)) {
             String[] firstmoduleName = moduleName.split("\\.");
-            map.put("firstModuleName",firstmoduleName[0]);
-        }else{
+            map.put("firstModuleName", firstmoduleName[0]);
+        } else {
             map.put("firstModuleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
         }
         map.put("email", config.getString("email"));
@@ -200,15 +193,11 @@ public class GenUtils {
     public static String getFileName(String template, String className, String packageName, String moduleName) {
         String packagePath = "main" + File.separator + "java" + File.separator;
         if (StringUtils.isNotBlank(packageName)) {
-            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName.replace(".",File.separator) + File.separator;
+            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName.replace(".", File.separator) + File.separator;
         }
 
-//        if (template.contains("Entity.java.vm" )) {
-//            return packagePath + "entity" + File.separator + className + "Entity.java";
-//        }
-
         if (template.contains("Pojo.java.vm")) {
-            return packagePath + "pojo" + File.separator + className + ".java";
+            return packagePath + "dao" + File.separator + "pojo" + File.separator + className + ".java";
         }
 
         if (template.contains("DTO.java.vm")) {

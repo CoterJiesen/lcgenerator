@@ -1,6 +1,6 @@
 package ${package}.${moduleName}.logic;
 
-import ${package}.${moduleName}.pojo.${className};
+import ${package}.${moduleName}.dao.pojo.${className};
 import com.cdyfsz.base.biz.svc.scf.base.logic.IBaseOperateLogic;
 
 /**
