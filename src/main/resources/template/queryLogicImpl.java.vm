@@ -1,4 +1,4 @@
-package ${package}.${moduleName}.logic;
+package ${package}.${moduleName}.logic.impl;
 
 import ${package}.${moduleName}.dao.pojo.${className};
 import org.springframework.stereotype.Component;

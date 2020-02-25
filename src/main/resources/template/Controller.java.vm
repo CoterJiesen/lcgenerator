@@ -1,11 +1,11 @@
 package ${package}.${moduleName}.controller;
 
+import club.newepoch.isf.api.BaseApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 
 import ${package}.${moduleName}.service.I${className}Service;
-
 /**
  * 成都一方思致科技有限公司
  *
@@ -22,7 +22,7 @@ import ${package}.${moduleName}.service.I${className}Service;
  **/
 @Slf4j
 @RestController
-public class ${className}Controller {
+public class ${className}Controller extends BaseApi{
 
     @Autowired
     private I${className}Service i${classname}Service;
