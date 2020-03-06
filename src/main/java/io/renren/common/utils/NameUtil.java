@@ -17,9 +17,10 @@ import static io.renren.common.constant.Constant.UNDERLINE;
 public class NameUtil {
 
     /**
+     * 下划线命名转为驼峰命名
      *
-     * @param para
-     * @return
+     * @param para 待转换字符串
+     * @return 转换后的字符串
      */
     public static String underLineToHump(String para) {
         StringBuilder result = new StringBuilder();
@@ -43,7 +44,8 @@ public class NameUtil {
     /***
      * 驼峰命名转为下划线命名
      *
-     * @param para
+     * @param para 待转换字符串
+     * @return 转换后的字符串
      */
     public static String humpToUnderLine(String para) {
         StringBuilder sb = new StringBuilder(para);
@@ -51,7 +53,7 @@ public class NameUtil {
         int temp = 0;
         if (!para.contains(UNDERLINE)) {
             for (int i = 0; i < para.length(); i++) {
-                if (i == 0){
+                if (i == 0) {
                     continue;
                 }
                 if (Character.isUpperCase(para.charAt(i))) {
@@ -64,7 +66,7 @@ public class NameUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(NameUtil.humpToUnderLine("CCalalslLss"));
-        System.out.println(NameUtil.underLineToHump("calu_clau"));
+        System.out.println(NameUtil.humpToUnderLine("C"));
+        System.out.println(NameUtil.underLineToHump("C_c_c"));
     }
 }
