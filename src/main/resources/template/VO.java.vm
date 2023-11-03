@@ -23,8 +23,8 @@ import java.math.*;
  * @date ${datetime}
  **/
 @Data
-@ApiModel("${className}DTO")
-public class ${className}DTO implements Serializable {
+@ApiModel("${className}VO")
+public class ${className}VO implements Serializable {
 
     #foreach ($column in $columns)
         #if($column.columnName == $pk.columnName)

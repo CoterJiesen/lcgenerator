@@ -1,13 +1,15 @@
-package ${package}.${moduleName}.dao;
+package ${package}.${moduleName}.infrastructure.persistent.repository.mappers;
 
-import ${package}.${moduleName}.dao.pojo.${className};
-import com.cdyfsz.base.biz.svc.scf.base.dao.IBaseDao;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${package}.${moduleName}.domain.${classname}.entity.${className};
+
+
 /**
- * 成都一方思致科技有限公司
+ * 成都思致科技有限公司
  *
  * @author ${author}
  * @version V1.0
- * 说明：${className}实体类对应dao接口
+ * 说明：${className}实体实现层
  * =========================================================================
  * 变更履历：
  * -------------------------------------------------------------------------
@@ -16,7 +18,7 @@ import com.cdyfsz.base.biz.svc.scf.base.dao.IBaseDao;
  * <p>
  * @date ${datetime}
  **/
-public interface I${className}Dao extends IBaseDao<${className}>{
+public interface ${className}Mapper extends BaseMapper<${className}> {
 
 }
 

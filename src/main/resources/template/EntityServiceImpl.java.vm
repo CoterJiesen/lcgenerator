@@ -1,8 +1,12 @@
-package ${package}.${moduleName}.service;
+package ${package}.${moduleName}.infrastructure.persistent.reposotity.mappers;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${package}.${moduleName}.domain.${classname}.entity.${className};
+import org.springframework.stereotype.Service;
 
 
 /**
- * 成都一方思致科技有限公司
+ * 成都思致科技有限公司
  *
  * @author ${author}
  * @version V1.0
@@ -15,7 +19,8 @@ package ${package}.${moduleName}.service;
  * <p>
  * @date ${datetime}
  **/
-public interface I${className}Service {
+@Service(value = "${className}EntityService")
+public class  ${className}Service extends ServiceImpl<${className}Mapper, ${className}>{
 
 }
 

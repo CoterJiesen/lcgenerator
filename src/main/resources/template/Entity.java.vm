@@ -1,35 +1,56 @@
-package ${package}.${moduleName}.entity;
+package ${package}.svc.${moduleName}.domain.${className}.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
+import ${package}.mybatis.metadata.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
+import lombok.EqualsAndHashCode;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+#if(${hasInteger})
+#end
 
 /**
- * ${comments}
- * 
+ * 成都思致科技有限公司
+ *
  * @author ${author}
- * @email ${email}
+ * @version V1.0
+ * 说明：${className}传输层对象
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
  * @date ${datetime}
- */
+ **/
 @Data
+@EqualsAndHashCode(callSuper=true)
+@ApiModel(value = "${className}")
 @TableName("${tableName}")
-public class ${className}Entity implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ${className} extends BaseEntity<Long,${className}>{
 
 #foreach ($column in $columns)
 	/**
 	 * $column.comments
 	 */
-	#if($column.columnName == $pk.columnName)
-@TableId
-	#end
-private $column.attrType $column.attrname;
+	#set ($index = $column.attrname.length())
+	#set ($firstname = $column.attrname.substring(0,1))
+	#set ($secondname = $column.attrname.substring(1,$index))
+	#set ($firstname = $firstname.toUpperCase() + $secondname)
+##	@ApiModelProperty(value = "$firstname")
+	#set ($index = $index - 1 )
+	#set ($attrname = $column.attrname.substring(0,$index) )
+	#set ($lastname = $column.attrname.substring($index))
+	#set ($lastname = $lastname.toLowerCase())
+	#set ($attrname = $attrname+ $lastname)
+private $column.attrType $attrname;
 #end
 
 }

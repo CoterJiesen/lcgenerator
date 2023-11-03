@@ -56,6 +56,7 @@ var vm = new Vue({
             if (tableNames == null) {
                 return;
             }
+            console.log(this.q);
             location.href = "sys/generator/code?tables=" + tableNames.join() + '&moduleName=' + this.q.moduleName + '&author=' + this.q.author;
         }
     }

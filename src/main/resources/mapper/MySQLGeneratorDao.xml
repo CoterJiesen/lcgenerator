@@ -18,17 +18,58 @@
 
 	<!-- update by zhangqijie 2019/12/10 start -->
 	<select id="queryColumns" resultType="map">
-		select column_name columnName, data_type dataType, column_comment columnComment, column_key columnKey, extra, character_maximum_length from information_schema.columns
- 			where table_name = #{tableName} and table_schema = (select database())
- 			 and columns.COLUMN_NAME != 'add_user_id'
- 			 and columns.COLUMN_NAME != 'add_time'
- 			 and columns.COLUMN_NAME != 'modify_user_id'
- 			 and columns.COLUMN_NAME != 'modify_time'
- 			 and columns.COLUMN_NAME != 'del_status'
- 			 and columns.COLUMN_NAME != 'tenant_id'
- 			 and columns.COLUMN_NAME != 'add_request_id'
- 			 and columns.COLUMN_NAME != 'modify_request_id'
- 			 order by ordinal_position
+ 		SELECT
+			columnName,
+			dataType,
+			columnComment,
+			columnKey,
+			extra,
+			IF (
+				zhengshu IS NOT NULL
+				AND xiaoshu IS NOT NULL,
+				zhengshu - xiaoshu,
+				zhengshu
+				) AS character_maximum_length
+		FROM(
+			SELECT
+				column_name columnName,
+				data_type dataType,
+				column_comment columnComment,
+				column_key columnKey,
+				extra,
+				(
+					CASE
+					WHEN data_type = 'float'
+					OR data_type = 'double'
+					OR data_type = 'TINYINT'
+					OR data_type = 'SMALLINT'
+					OR data_type = 'MEDIUMINT'
+					OR data_type = 'INT'
+					OR data_type = 'INTEGER'
+					OR data_type = 'decimal'
+					OR data_type = 'bigint' THEN
+						NUMERIC_PRECISION
+					ELSE
+						CHARACTER_MAXIMUM_LENGTH
+					END
+				) AS zhengshu,
+				NUMERIC_SCALE AS xiaoshu
+			FROM
+				information_schema. COLUMNS
+			WHERE
+				table_name = #{tableName}
+			AND table_schema = (SELECT DATABASE())
+			AND COLUMNS .COLUMN_NAME != 'add_user_id'
+			AND COLUMNS .COLUMN_NAME != 'add_time'
+			AND COLUMNS .COLUMN_NAME != 'modify_user_id'
+			AND COLUMNS .COLUMN_NAME != 'modify_time'
+			AND COLUMNS .COLUMN_NAME != 'del_status'
+			AND COLUMNS .COLUMN_NAME != 'tenant_id'
+			AND COLUMNS .COLUMN_NAME != 'add_request_id'
+			AND COLUMNS .COLUMN_NAME != 'modify_request_id'
+			ORDER BY
+			ordinal_position
+	) a
 	</select>
 	<!-- update by zhangqijie 2019/12/10 end -->
 </mapper>

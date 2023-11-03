@@ -1,7 +1,7 @@
 package io.renren.common.constant;
 
 /**
- * 成都一方思致科技有限公司
+ * 成都思致科技有限公司
  *
  * @Author intasect
  * @Date 2020/3/6 13:42

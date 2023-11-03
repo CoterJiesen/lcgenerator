@@ -1,7 +1,6 @@
 package io.renren.utils;
 
 import io.renren.entity.ColumnEntity;
-import io.renren.entity.GeneratorEntity;
 import io.renren.entity.TableEntity;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -16,6 +15,7 @@ import org.apache.velocity.app.Velocity;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -30,25 +30,18 @@ public class GenUtils {
      * @return
      */
     public static List<String> getTemplates() {
-        List<String> templates = new ArrayList<String>();
-        templates.add("template/dao.java.vm");
-        templates.add("template/daoImpl.java.vm");
-        templates.add("template/operateLogic.java.vm");
-        templates.add("template/operateLogicImpl.java.vm");
-        templates.add("template/queryLogic.java.vm");
-        templates.add("template/queryLogicImpl.java.vm");
-        templates.add("template/ettLogic.java.vm");
-        templates.add("template/ettLogicImpl.java.vm");
-        templates.add("template/Service.java.vm");
-        templates.add("template/ServiceImpl.java.vm");
+        List<String> templates = new ArrayList<>();
+        templates.add("template/Application.java.vm");
         templates.add("template/Controller.java.vm");
-//        templates.add("template/menu.sql.vm");
-        templates.add("template/Pojo.java.vm");
+        templates.add("template/DomainServiceImpl.java.vm");
         templates.add("template/DTO.java.vm");
-
-        templates.add("template/index.vue.vm");
-        templates.add("template/add-or-update.vue.vm");
-
+        templates.add("template/Entity.java.vm");
+        templates.add("template/EntityServiceImpl.java.vm");
+        templates.add("template/IApi.java.vm");
+        templates.add("template/Mapper.java.vm");
+        templates.add("template/Repository.java.vm");
+        templates.add("template/RepositoryImpl.java.vm");
+        templates.add("template/VO.java.vm");
         return templates;
     }
 
@@ -63,6 +56,7 @@ public class GenUtils {
         //配置信息
         Configuration config = getConfig();
         boolean hasBigDecimal = false;
+        boolean hasInteger = false;
         //表信息
         TableEntity tableEntity = new TableEntity();
         tableEntity.setTableName(table.get("tableName"));
@@ -71,7 +65,6 @@ public class GenUtils {
         String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix"));
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
-
         //列信息
         List<ColumnEntity> columsList = new ArrayList<>();
         for (Map<String, String> column : columns) {
@@ -85,13 +78,24 @@ public class GenUtils {
             String attrName = columnToJava(columnEntity.getColumnName());
             columnEntity.setAttrName(attrName);
             columnEntity.setAttrname(StringUtils.uncapitalize(attrName));
-
+            columnEntity.setMaxValue(new BigDecimal(columnEntity.getCharacterMaximumLength()));
             //列的数据类型，转换成Java类型
             String attrType = config.getString(columnEntity.getDataType(), "unknowType");
             columnEntity.setAttrType(attrType);
             if (!hasBigDecimal && attrType.equals("BigDecimal")) {
                 hasBigDecimal = true;
             }
+
+            if (attrType.equals("BigDecimal")) {
+                columnEntity.setMaxValue(new BigDecimal(Math.pow(10, Double.valueOf(columnEntity.getCharacterMaximumLength())) - 1));
+            }
+            if (!hasInteger && attrType.equals("Integer")) {
+                hasInteger = true;
+            }
+            if (attrType.equals("Integer")) {
+                columnEntity.setMaxValue(new BigDecimal(Math.pow(10, Double.valueOf(columnEntity.getCharacterMaximumLength()) - 1) - 1));
+            }
+
             //是否主键
             if ("PRI".equalsIgnoreCase(column.get("columnKey")) && tableEntity.getPk() == null) {
                 tableEntity.setPk(columnEntity);
@@ -122,6 +126,7 @@ public class GenUtils {
         map.put("pathName", tableEntity.getClassname().toLowerCase());
         map.put("columns", tableEntity.getColumns());
         map.put("hasBigDecimal", hasBigDecimal);
+        map.put("hasInteger", hasInteger);
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package"));
         map.put("moduleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
@@ -152,7 +157,7 @@ public class GenUtils {
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
             } catch (IOException e) {
-                throw new RRException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
+                throw new RRException("渲染模板失败，表名：" + template + tableEntity.getTableName(), e);
             }
         }
     }
@@ -187,81 +192,70 @@ public class GenUtils {
     }
 
     /**
-     * zqj
-     * 获取文件名
+     * 获取相对路径文件名
      */
     public static String getFileName(String template, String className, String packageName, String moduleName) {
-        String packagePath = "main" + File.separator + "java" + File.separator;
-        if (StringUtils.isNotBlank(packageName)) {
-            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName.replace(".", File.separator) + File.separator;
-        }
 
-        if (template.contains("Pojo.java.vm")) {
-            return packagePath + "dao" + File.separator + "pojo" + File.separator + className + ".java";
-        }
+        String fileName = "";
 
-        if (template.contains("DTO.java.vm")) {
-            return packagePath + "dto" + File.separator + className + "DTO.java";
-        }
+        String packagePath = packageName + File.separator;
+//        if (StringUtils.isNotBlank(packageName)) {
+//            packagePath += packageName.replace(".", File.separator) + File.separator ;
+//        }
 
-        if (template.contains("dao.java.vm")) {
-            return packagePath + "dao" + File.separator + "I" + className + "Dao.java";
-        }
-
-        if (template.contains("daoImpl.java.vm")) {
-            return packagePath + "dao" + File.separator + "impl" + File.separator + className + "DaoImpl.java";
-        }
-
-        if (template.contains("operateLogic.java.vm")) {
-            return packagePath + "logic" + File.separator + "I" + className + "OperateLogic.java";
-        }
-
-        if (template.contains("operateLogicImpl.java.vm")) {
-            return packagePath + "logic" + File.separator + "impl" + File.separator + className + "OperateLogicImpl.java";
-        }
-
-        if (template.contains("queryLogic.java.vm")) {
-            return packagePath + "logic" + File.separator + "I" + className + "QueryLogic.java";
-        }
-
-        if (template.contains("queryLogicImpl.java.vm")) {
-            return packagePath + "logic" + File.separator + "impl" + File.separator + className + "QueryLogicImpl.java";
-        }
-
-        if (template.contains("ettLogic.java.vm")) {
-            return packagePath + "ettlogic" + File.separator + "I" + className + "EttLogic.java";
-        }
-
-        if (template.contains("ettLogicImpl.java.vm")) {
-            return packagePath + "ettlogic" + File.separator + "impl" + File.separator + className + "EttLogicImpl.java";
-        }
-
-        if (template.contains("Service.java.vm")) {
-            return packagePath + "service" + File.separator + "I" + className + "Service.java";
-        }
-
-        if (template.contains("ServiceImpl.java.vm")) {
-            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+        if (template.contains("Application.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "application" + File.separator + className + "Application.java";
         }
 
         if (template.contains("Controller.java.vm")) {
-            return packagePath + "controller" + File.separator + className + "Controller.java";
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "rest" + File.separator + className + "Controller.java";
         }
 
-        if (template.contains("menu.sql.vm")) {
-            return className.toLowerCase() + "_menu.sql";
+        if (template.contains("DomainServiceImpl.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "domain" + File.separator + className.toLowerCase() + File.separator + "service" + File.separator + className + "Service.java";
         }
 
-        if (template.contains("index.vue.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
-                    File.separator + moduleName + File.separator + className.toLowerCase() + ".vue";
+        if (template.contains("DTO.java.vm")) {
+            fileName = packagePath + "api" + File.separator + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "dto" + File.separator + className + "DTO.java";
         }
 
-        if (template.contains("add-or-update.vue.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
-                    File.separator + moduleName + File.separator + className.toLowerCase() + "-add-or-update.vue";
+        if (template.contains("Entity.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "domain" + File.separator + className.toLowerCase() + File.separator + "entity" + File.separator + className + ".java";
         }
 
-        return null;
+        if (template.contains("EntityServiceImpl.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "infrastructure" + File.separator + "persistent"+ File.separator + "repository"+ File.separator + "mappers" + File.separator + className + "Service.java";
+        }
+
+        if (template.contains("IApi.java.vm")) {
+            fileName = packagePath + "api" + File.separator + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "api" + File.separator + className + "Api.java";
+        }
+
+        if (template.contains("Mapper.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "infrastructure" + File.separator + "persistent"+ File.separator + "repository"+ File.separator + "mappers" + File.separator + className + "Mapper.java";
+        }
+
+        if (template.contains("Repository.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "domain" + File.separator + className.toLowerCase() + File.separator + "repository" + File.separator + "I" + className + "Repository.java";
+        }
+
+        if (template.contains("RepositoryImpl.java.vm")) {
+            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "infrastructure" + File.separator + "persistent" + File.separator + "repository" + File.separator + className + "Repository.java";
+        }
+
+        if (template.contains("VO.java.vm")) {
+            fileName = packagePath + "api" + File.separator + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "vo" + File.separator + className + "VO.java";
+        }
+
+        System.out.println("fileName = " + fileName);
+
+        if ("".equals(fileName)) {
+            throw new RuntimeException(template + "模板文件未找到");
+        } else {
+            return fileName;
+        }
+
     }
+
+
 }

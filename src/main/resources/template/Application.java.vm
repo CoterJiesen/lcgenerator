@@ -1,0 +1,28 @@
+package ${package}.${moduleName}.application;
+
+import ${package}.${moduleName}.domain.${classname}.service.${className}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className}实体类对应Application接口
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Component
+public class ${className}Application {
+
+    @Autowired
+    ${className}Service ${classname}Service;
+
+}
+

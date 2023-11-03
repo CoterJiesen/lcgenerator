@@ -1,14 +1,11 @@
-package ${package}.${moduleName}.ettlogic;
-
-import ${package}.${moduleName}.dao.pojo.${className};
-import com.cdyfsz.base.biz.svc.scf.base.ettlogic.IBaseEttLogic;
+package ${package}.${moduleName}.domain.${className}.repository;
 
 /**
- * 成都一方思致科技有限公司
+ * 成都思致科技有限公司
  *
  * @author ${author}
  * @version V1.0
- * 说明：${className}实体类对应业务实体Logic接口
+ * 说明：${className}实体类对应repository接口
  * =========================================================================
  * 变更履历：
  * -------------------------------------------------------------------------
@@ -17,7 +14,7 @@ import com.cdyfsz.base.biz.svc.scf.base.ettlogic.IBaseEttLogic;
  * <p>
  * @date ${datetime}
  **/
-public interface I${className}EttLogic extends IBaseEttLogic<${className}> {
+public interface I${className}Repository {
 
 }
 

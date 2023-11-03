@@ -1,7 +1,7 @@
 package io.renren.entity;
 
 /**
- * 成都一方思致科技有限公司
+ * 成都思致科技有限公司
  * 生成工具
  *
  * @Author intasect

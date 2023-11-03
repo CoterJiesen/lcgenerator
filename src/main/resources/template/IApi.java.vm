@@ -1,14 +1,13 @@
-package ${package}.${moduleName}.logic;
+package ${package}.api.${moduleName}.interfaces.api;
 
-import ${package}.${moduleName}.dao.pojo.${className};
-import com.cdyfsz.base.biz.svc.scf.base.logic.IBaseQueryLogic;
+import io.swagger.annotations.Api;
 
 /**
- * 成都一方思致科技有限公司
+ * 成都思致科技有限公司
  *
  * @author ${author}
  * @version V1.0
- * 说明：${className}实体类对应操作类Logic接口
+ * 说明：${className}接口类对应接口
  * =========================================================================
  * 变更履历：
  * -------------------------------------------------------------------------
@@ -17,7 +16,8 @@ import com.cdyfsz.base.biz.svc.scf.base.logic.IBaseQueryLogic;
  * <p>
  * @date ${datetime}
  **/
-public interface I${className}QueryLogic extends IBaseQueryLogic<${className}> {
+@Api(value = "${className}Api", tags = "${className}")
+public interface ${className}Api {
 
 }
 
