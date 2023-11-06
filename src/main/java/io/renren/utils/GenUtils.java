@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -31,17 +33,20 @@ public class GenUtils {
      */
     public static List<String> getTemplates() {
         List<String> templates = new ArrayList<>();
+        templates.add("template/Api.java.vm");
+        templates.add("template/ApiDTO.java.vm");
+        templates.add("template/ApiVO.java.vm");
         templates.add("template/Application.java.vm");
+        templates.add("template/AppRepository.java.vm");
         templates.add("template/Controller.java.vm");
-        templates.add("template/DomainServiceImpl.java.vm");
-        templates.add("template/DTO.java.vm");
-        templates.add("template/Entity.java.vm");
-        templates.add("template/EntityServiceImpl.java.vm");
-        templates.add("template/IApi.java.vm");
-        templates.add("template/Mapper.java.vm");
-        templates.add("template/Repository.java.vm");
-        templates.add("template/RepositoryImpl.java.vm");
-        templates.add("template/VO.java.vm");
+        templates.add("template/DomainEntity.java.vm");
+        templates.add("template/DomainRepository.java.vm");
+        templates.add("template/DomainService.java.vm");
+        templates.add("template/InfrastructureAppRepository.java.vm");
+        templates.add("template/InfrastructureDomainRepository.java.vm");
+        templates.add("template/PersistentMapper.java.vm");
+        templates.add("template/PersistentPO.java.vm");
+        templates.add("template/PersistentPoService.java.vm");
         return templates;
     }
 
@@ -198,54 +203,72 @@ public class GenUtils {
 
         String fileName = "";
 
-        String packagePath = packageName + File.separator;
-//        if (StringUtils.isNotBlank(packageName)) {
-//            packagePath += packageName.replace(".", File.separator) + File.separator ;
-//        }
+        String modulePath = moduleName.replace(".", File.separator) + File.separator;
+        //设置根路径
+        BiFunction<String, String, String> pkgPath = (String root, String pkg) ->
+                packageName+ File.separator+ root + File.separator +"src\\main\\java\\"+ packageName.replace(".", File.separator) + File.separator + pkg + File.separator + modulePath;
+        //类名文件名
+        Function<String, String> clzName = (String clz) -> className + clz;
+        //接口文件名
+        Function<String, String> iClzName = (String clz) -> "I" + className + clz;
 
-        if (template.contains("Application.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "application" + File.separator + className + "Application.java";
+        //vo
+        if (template.contains("ApiVO.java.vm")) {
+            fileName = pkgPath.apply("biz-svc-api", "vo") + clzName.apply("VO.java");
+        }
+        //dto
+        if (template.contains("ApiDTO.java.vm")) {
+            fileName = pkgPath.apply("biz-svc-api", "dto") + clzName.apply("DTO.java");
+        }
+        //api
+        if (template.contains("Api.java.vm")) {
+            fileName = pkgPath.apply("biz-svc-api", "api") + iClzName.apply("Api.java");
         }
 
+        //interfaces/rest
         if (template.contains("Controller.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "rest" + File.separator + className + "Controller.java";
+            fileName = pkgPath.apply("biz-svc", "interfaces\\rest") + clzName.apply("Controller.java");
         }
 
-        if (template.contains("DomainServiceImpl.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "domain" + File.separator + className.toLowerCase() + File.separator + "service" + File.separator + className + "Service.java";
+        //application
+        if (template.contains("Application.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "application") + clzName.apply("Application.java");
+        }
+        if (template.contains("AppRepository.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "application") + "repository\\" + iClzName.apply("AppRepository.java");
         }
 
-        if (template.contains("DTO.java.vm")) {
-            fileName = packagePath + "api" + File.separator + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "dto" + File.separator + className + "DTO.java";
+        //domain
+        if (template.contains("DomainService.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "domain") + "service\\" + clzName.apply("DomainService.java");
+        }
+        if (template.contains("DomainEntity.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "domain") + "entity\\" + clzName.apply("DO.java");
+        }
+        if (template.contains("DomainRepository.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "domain") + "repository\\" + iClzName.apply("DomainRepository.java");
         }
 
-        if (template.contains("Entity.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "domain" + File.separator + className.toLowerCase() + File.separator + "entity" + File.separator + className + ".java";
+        //infrastructure/persistent
+        if (template.contains("PersistentPO.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "infrastructure\\persistent") + "po\\" + clzName.apply("PO.java");
+        }
+        if (template.contains("PersistentMapper.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "infrastructure\\persistent") + "mapper\\" + clzName.apply("Mapper.java");
+        }
+        if (template.contains("PersistentPoService.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "infrastructure\\persistent") + clzName.apply("PoService.java");
         }
 
-        if (template.contains("EntityServiceImpl.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "infrastructure" + File.separator + "persistent"+ File.separator + "repository"+ File.separator + "mappers" + File.separator + className + "Service.java";
+        //infrastructure/repository 实现类 《=AppRepository、DomainRepository
+        if (template.contains("InfrastructureAppRepository.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "infrastructure\\repository") + "apprepo\\" + clzName.apply("AppRepository.java");
         }
 
-        if (template.contains("IApi.java.vm")) {
-            fileName = packagePath + "api" + File.separator + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "api" + File.separator + className + "Api.java";
+        if (template.contains("InfrastructureDomainRepository.java.vm")) {
+            fileName = pkgPath.apply("biz-svc", "infrastructure\\repository") + "domainrepo\\" + clzName.apply("DomainRepository.java");
         }
 
-        if (template.contains("Mapper.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "infrastructure" + File.separator + "persistent"+ File.separator + "repository"+ File.separator + "mappers" + File.separator + className + "Mapper.java";
-        }
-
-        if (template.contains("Repository.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "domain" + File.separator + className.toLowerCase() + File.separator + "repository" + File.separator + "I" + className + "Repository.java";
-        }
-
-        if (template.contains("RepositoryImpl.java.vm")) {
-            fileName = packagePath + moduleName.replace(".", File.separator) + File.separator + "infrastructure" + File.separator + "persistent" + File.separator + "repository" + File.separator + className + "Repository.java";
-        }
-
-        if (template.contains("VO.java.vm")) {
-            fileName = packagePath + "api" + File.separator + moduleName.replace(".", File.separator) + File.separator + "interfaces" + File.separator + "vo" + File.separator + className + "VO.java";
-        }
 
         System.out.println("fileName = " + fileName);
 

@@ -1,11 +1,12 @@
-package ${package}.${moduleName}.domain.${className}.repository;
+package ${package}.domain.${moduleName}.repository;
 
 /**
  * 成都思致科技有限公司
  *
  * @author ${author}
  * @version V1.0
- * 说明：${className}实体类对应repository接口
+ * 说明：${className}实体类对应DomainRepository读写接口
+ * 被service层调用，由infrastructure.repository的业务模块${moduleName}实现
  * =========================================================================
  * 变更履历：
  * -------------------------------------------------------------------------
@@ -14,7 +15,7 @@ package ${package}.${moduleName}.domain.${className}.repository;
  * <p>
  * @date ${datetime}
  **/
-public interface I${className}Repository {
+public interface I${className}DomainRepository {
 
 }
 

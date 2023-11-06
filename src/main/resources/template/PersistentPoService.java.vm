@@ -1,8 +1,8 @@
-package ${package}.${moduleName}.domain.${className}.service;
+package ${package}.infrastructure.persistent.${moduleName};
 
-import ${package}.${moduleName}.domain.${classname}.repository.I${className}Repository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${package}.infrastructure.persistent.${moduleName}.po.${className}PO;
+import ${package}.infrastructure.persistent.${moduleName}.mapper.${className}Mapper;
 import org.springframework.stereotype.Service;
 
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  *
  * @author ${author}
  * @version V1.0
- * 说明：${className}实体类对应service接口实现类
+ * 说明：${className}实体类对应service接口
  * =========================================================================
  * 变更履历：
  * -------------------------------------------------------------------------
@@ -20,11 +20,8 @@ import org.springframework.stereotype.Service;
  * <p>
  * @date ${datetime}
  **/
-@Slf4j
-@Service(value = "${className}DomainService")
-public class ${className}Service {
-
-    @Autowired
-    I${className}Repository ${classname}Repository;
+@Service(value = "${className}PoService")
+public class  ${className}PoService extends ServiceImpl<${className}Mapper, ${className}PO>{
 
 }
+

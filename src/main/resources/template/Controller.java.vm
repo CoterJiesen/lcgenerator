@@ -1,12 +1,12 @@
-package ${package}.${moduleName}.interfaces.rest;
+package ${package}.interfaces.rest.${moduleName};
 
-import ${package}.api.Constants;
-import ${package}.${moduleName}.application.${className}Application;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import lombok.extern.slf4j.Slf4j;
-import ${package}.api.${moduleName}.interfaces.rest.${className}Api;
+import club.newepoch.isf.api.BaseApi;
+import ${package}.api.${moduleName}.I${className}Api;
+import ${package}.application.${moduleName}.${className}Application;
 
 
 /**
@@ -25,9 +25,9 @@ import ${package}.api.${moduleName}.interfaces.rest.${className}Api;
  **/
 @Slf4j
 @RestController
-public class ${className}Controller implements ${className}Api {
+@RequiredArgsConstructor
+public class ${className}Controller extends BaseApi implements I${className}Api {
 
-    @Autowired
-    private ${className}Application ${classname}Application;
+    private final  ${className}Application ${classname}Application;
 
 }

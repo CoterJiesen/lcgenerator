@@ -1,8 +1,9 @@
-package ${package}.${moduleName}.infrastructure.persistent.reposotity.mappers;
+package ${package}.domain.${moduleName}.service;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import ${package}.${moduleName}.domain.${classname}.entity.${className};
+import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ${package}.domain.${moduleName}.repository.I${className}DomainRepository;
 
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
  *
  * @author ${author}
  * @version V1.0
- * 说明：${className}实体类对应service接口
+ * 说明：${className}实体类对应service接口实现类
  * =========================================================================
  * 变更履历：
  * -------------------------------------------------------------------------
@@ -19,8 +20,11 @@ import org.springframework.stereotype.Service;
  * <p>
  * @date ${datetime}
  **/
-@Service(value = "${className}EntityService")
-public class  ${className}Service extends ServiceImpl<${className}Mapper, ${className}>{
+@Slf4j
+@Service(value = "${className}DomainService")
+@RequiredArgsConstructor
+public class ${className}DomainService {
+
+    private final  I${className}DomainRepository i${className}DomainRepository;
 
 }
-

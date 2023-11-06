@@ -1,4 +1,4 @@
-package ${package}.api.${moduleName}.interfaces.${moduleName}.dto;
+package ${package}.vo.${moduleName};
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,23 +23,21 @@ import java.math.*;
  * @date ${datetime}
  **/
 @Data
-@ApiModel("${className}DTO")
-public class ${className}DTO implements Serializable {
-
-    #foreach ($column in $columns)
-        #if($column.columnName == $pk.columnName)
-            /**
-             * $column.comments
-             */
-            @ApiModelProperty("$column.comments")
-            private String $column.attrname;
-        #else
-            /**
-             * $column.comments
-             */
-            @ApiModelProperty("$column.comments")
-            private $column.attrType $column.attrname;
-        #end
-    #end
-
+@ApiModel("${className}VO")
+public class ${className}VO implements Serializable {
+#foreach ($column in $columns)
+#if($column.columnName == $pk.columnName)
+    /**
+     * $column.comments
+     */
+    @ApiModelProperty("$column.comments")
+    private String $column.attrname;
+#else
+    /**
+     * $column.comments
+     */
+    @ApiModelProperty("$column.comments")
+    private $column.attrType $column.attrname;
+#end
+#end
 }

@@ -1,0 +1,48 @@
+package ${package}.infrastructure.persistent.${moduleName}.po;
+
+
+import java.util.Date;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import cn.net.cdsz.mybatis.metadata.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+#if(${hasInteger})
+#end
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className} PO层对象
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Data
+@EqualsAndHashCode(callSuper=true)
+@TableName("${tableName}")
+public class ${className}PO extends BaseEntity<Long,${className}PO>{
+#foreach ($column in $columns)
+	/**
+	 * $column.comments
+	 */
+	#set ($index = $column.attrname.length())
+	#set ($firstname = $column.attrname.substring(0,1))
+	#set ($secondname = $column.attrname.substring(1,$index))
+	#set ($firstname = $firstname.toUpperCase() + $secondname)
+	#set ($index = $index - 1 )
+	#set ($attrname = $column.attrname.substring(0,$index) )
+	#set ($lastname = $column.attrname.substring($index))
+	#set ($lastname = $lastname.toLowerCase())
+	#set ($attrname = $attrname+ $lastname)
+private $column.attrType $attrname;
+#end
+}

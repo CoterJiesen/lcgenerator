@@ -1,7 +1,7 @@
-package ${package}.${moduleName}.infrastructure.persistent.repository.mappers;
+package ${package}.infrastructure.persistent.${moduleName}.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import ${package}.${moduleName}.domain.${classname}.entity.${className};
+import ${package}.infrastructure.persistent.${moduleName}.po.${className}PO;
 
 
 /**
@@ -18,7 +18,7 @@ import ${package}.${moduleName}.domain.${classname}.entity.${className};
  * <p>
  * @date ${datetime}
  **/
-public interface ${className}Mapper extends BaseMapper<${className}> {
+public interface ${className}Mapper extends BaseMapper<${className}PO> {
 
 }
 
