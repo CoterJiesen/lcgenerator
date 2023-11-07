@@ -1,0 +1,24 @@
+package ${package}.infrastructure.persistent.${moduleName}.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${package}.infrastructure.persistent.${moduleName}.po.${className}PO;
+
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className}实体实现层
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+public interface ${className}Mapper extends BaseMapper<${className}PO> {
+
+}
+

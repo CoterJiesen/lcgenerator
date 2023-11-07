@@ -1,0 +1,41 @@
+package ${package}.infrastructure.persistent.${moduleName}.po;
+
+
+import java.util.Date;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import cn.net.cdsz.mybatis.metadata.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+#if(${hasInteger})
+#end
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className} PO层对象
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Data
+@EqualsAndHashCode(callSuper=true)
+@TableName("${tableName}")
+public class ${className}PO extends BaseEntity<Long,${className}PO>{
+#foreach ($column in $columns)
+#if($column.columnName != $pk.columnName)
+	/**
+	 * $column.comments
+	 */
+	private $column.attrType $column.attrname;
+#end
+#end
+}

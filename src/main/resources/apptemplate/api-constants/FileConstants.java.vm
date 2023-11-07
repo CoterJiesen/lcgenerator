@@ -1,0 +1,65 @@
+package ${package}.constants;
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @date ${date}
+ * @version V1.0
+ * 说明：文件相关常量
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ **/
+public class FileConstants {
+    /**
+     * 文件类型xls
+     */
+    public static final String FILE_TYPE_EXCEL_XLS = "xls";
+
+    /**
+     * 文件类型xlsx
+     */
+    public static final String FILE_TYPE_EXCEL_XLSX = "xlsx";
+
+    /**
+     * 文件类型docx
+     */
+    public static final String FILE_TYPE_EXCEL_DOCX = "docx";
+
+    /**
+     * 文件类型doc
+     */
+    public static final String FILE_TYPE_EXCEL_DOC = "doc";
+    /**
+     * 文件类型pdf
+     */
+    public static final String FILE_TYPE_EXCEL_PDF = "pdf";
+
+    /**
+     * 文件类型png
+     */
+    public static final String FILE_TYPE_EXCEL_PNG = "png";
+    /**
+     * 文件类型xlsx
+     */
+    public static final String FILE_TYPE_EXCEL_JPG = "jpg";
+
+    /**
+     * 文件类型jpeg
+     */
+    public static final String FILE_TYPE_EXCEL_JPEG = "jpeg";
+
+    /**
+     * 文件类型html
+     */
+    public static final String FILE_TYPE_EXCEL_HTML = "html";
+
+    /**
+     * 文件类型txt
+     */
+    public static final String FILE_TYPE_EXCEL_TXT = "txt";
+}

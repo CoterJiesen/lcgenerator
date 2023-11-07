@@ -1,8 +1,7 @@
 package io.renren.utils;
 
-import cn.hutool.core.util.ZipUtil;
-import io.renren.utils.DateUtils;
-import io.renren.utils.RRException;
+import cn.hutool.core.io.file.PathUtil;
+import com.sun.xml.internal.rngom.util.Uri;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -14,7 +13,10 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.zip.ZipEntry;
@@ -23,6 +25,26 @@ import java.util.zip.ZipOutputStream;
 public class AppGen {
 
     public static final String POINT = ".";
+
+    public static List<String> getFolderFileNames(String path) {
+        List<String> templates = new ArrayList<>();
+        ClassLoader classLoader = AppGen.class.getClassLoader();
+        try {
+            URL resourceUrl = classLoader.getResource(path);
+            if (resourceUrl != null) {
+                URI uri = resourceUrl.toURI();
+                List<File> files = PathUtil.loopFiles(Paths.get(uri), null);
+                files.forEach(m -> {
+                    String fullPath = m.getPath();
+                    templates.add(fullPath.substring(fullPath.substring(0, fullPath.indexOf("classes")).length() + 8));
+                });
+                System.out.println(files);
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return templates;
+    }
 
 
     public static List<String> getAppTemplates() {
@@ -36,6 +58,8 @@ public class AppGen {
         templates.add("apptemplate/logback.xml.vm");
         templates.add("apptemplate/parent-pom.xml.vm");
         templates.add("apptemplate/svc-pom.xml.vm");
+        templates.addAll(getFolderFileNames("apptemplate/api-constants"));
+        templates.addAll(getFolderFileNames("apptemplate/svc-infrastructure"));
         return templates;
 
     }
@@ -43,7 +67,7 @@ public class AppGen {
     /**
      * 生成代码
      */
-    public static void generatorAppCode(ZipOutputStream zip, String author) {
+    public static void generatorAppCode(ZipOutputStream zip, String moduleName, String author) {
         //配置信息
         Configuration config = getConfig();
 
@@ -64,10 +88,9 @@ public class AppGen {
         VelocityContext context = new VelocityContext(map);
 
         //1、生成模块
-        String moduleNames = config.getString("moduleName");
         String appName = config.getString("appName");
         String packageName = config.getString("package");
-        genModuleFile(zip, moduleNames, packageName, appName);
+        genModuleFile(zip, moduleName, packageName, appName);
 
         //2、根据模板生成文件
         //获取模板列表
@@ -132,9 +155,16 @@ public class AppGen {
             fileName = pkgPath.apply(appName) + "Application.java";
         }
 
+        if (template.contains("svc-infrastructure")) {
+            fileName = pkgPath.apply(appName) + "infrastructure/"+template.replace(".vm", "").replace("apptemplate\\svc-infrastructure\\","");
+        }
+
+        if (template.contains("api-constants")) {
+            fileName = pkgPath.apply(appName + "-api") + "constants/"+template.replace(".vm", "").replace("apptemplate\\api-constants\\","");
+        }
         //resources
         if (template.contains("app.properties.vm") || template.contains("application-dev.yml.vm") || template.contains("application-exc.yml.vm") || template.contains("bootstrap.yml.vm") || template.contains("logback.xml.vm")) {
-            fileName = svcPath + svcPath + "src/main/resources/" + template.replace(".vm", "").replace("apptemplate/","");
+            fileName = svcPath + svcPath + "src/main/resources/" + template.replace(".vm", "").replace("apptemplate/", "");
         }
 
         System.out.println("fileName = " + fileName);
@@ -150,13 +180,14 @@ public class AppGen {
 
     /**
      * 将文件写入zip
-     * @param zip zip
+     *
+     * @param zip     zip
      * @param fileMap 文件名，文件字符串内容
      */
-    public static void addZipEmptyfileList(ZipOutputStream zip, Map<String, String> fileMap) {
+    public static void addZipfileList(ZipOutputStream zip, Map<String, String> fileMap) {
         try {
             //添加到zip
-            for (Map.Entry<String,String> entry: fileMap.entrySet()){
+            for (Map.Entry<String, String> entry : fileMap.entrySet()) {
                 zip.putNextEntry(new ZipEntry(entry.getKey()));
                 if (StringUtils.isNotBlank(entry.getValue())) {
                     IOUtils.write(entry.getValue(), zip, "UTF-8");
@@ -170,6 +201,7 @@ public class AppGen {
 
     /**
      * 添加替换后的模板文件到zip
+     *
      * @param zip
      * @param templates
      * @param packageName
@@ -177,7 +209,7 @@ public class AppGen {
      * @param context
      */
     public static void genTemplateFile(ZipOutputStream zip, List<String> templates, String packageName, String appName, VelocityContext context) {
-        Map<String,String> fileMap = new HashMap<>();
+        Map<String, String> fileMap = new HashMap<>();
         for (String template : templates) {
             //渲染模板
             StringWriter sw = new StringWriter();
@@ -186,7 +218,7 @@ public class AppGen {
             fileMap.put(getAppTemplateFileName(template, packageName, appName), sw.toString());
             IOUtils.closeQuietly(sw);
         }
-        addZipEmptyfileList(zip, fileMap);
+        addZipfileList(zip, fileMap);
     }
 
     /**
@@ -197,28 +229,32 @@ public class AppGen {
         Function<String, String> pkgPath = (String root) ->
                 appName + File.separator + root + File.separator + "src\\main\\java\\" + packageName.replace(".", File.separator) + File.separator;
 
-        String[] modules = moduleNames.split("/");
-        Map<String,String> fileMap = new HashMap<>();
+        String[] modules = moduleNames.split(":");
+        Map<String, String> fileMap = new HashMap<>();
         for (String module : modules) {
             module += "/.gitkeep";
-            fileMap.put( pkgPath.apply(appName) + "application/" + module, "");
-            fileMap.put( pkgPath.apply(appName) + "interfaces/rest/" + module, "");
-            fileMap.put( pkgPath.apply(appName) + "domain/" + module, "");
-            fileMap.put( pkgPath.apply(appName) + "infrastructure/persistent/" + module, "");
-            fileMap.put( pkgPath.apply(appName) + "infrastructure/repository/" + module, "");
-            fileMap.put( appName + File.separator + appName + File.separator + "src/main/resources/mapper/" + module, "");
-            fileMap.put( pkgPath.apply(appName + "-api") + "vo/" + module, "");
-            fileMap.put( pkgPath.apply(appName + "-api") + "dto/" + module, "");
-            fileMap.put( pkgPath.apply(appName + "-api") + "api/" + module, "");
+            fileMap.put(pkgPath.apply(appName) + "application/" + module, "");
+            fileMap.put(pkgPath.apply(appName) + "interfaces/rest/" + module, "");
+            fileMap.put(pkgPath.apply(appName) + "domain/" + module, "");
+            fileMap.put(pkgPath.apply(appName) + "infrastructure/persistent/" + module, "");
+            fileMap.put(pkgPath.apply(appName) + "infrastructure/repository/" + module, "");
+            fileMap.put(appName + File.separator + appName + File.separator + "src/main/resources/mapper/" + module, "");
+            fileMap.put(pkgPath.apply(appName + "-api") + "vo/" + module, "");
+            fileMap.put(pkgPath.apply(appName + "-api") + "dto/" + module, "");
+            fileMap.put(pkgPath.apply(appName + "-api") + "api/" + module, "");
         }
-        addZipEmptyfileList(zip, fileMap);
+        fileMap.put(pkgPath.apply(appName) + "infrastructure/config/" + ".gitkeep", "");
+        fileMap.put(pkgPath.apply(appName) + "infrastructure/external/" + ".gitkeep", "");
+        fileMap.put(pkgPath.apply(appName) + "infrastructure/mq/" + ".gitkeep", "");
+        addZipfileList(zip, fileMap);
     }
 
 
     public static void main(String[] args) {
+//        getFolderFileNames("apptemplate/svc-infrastructure");
         try {
             ZipOutputStream zip = new ZipOutputStream(new FileOutputStream("C:\\Users\\jc\\Desktop\\genapp.zip"));
-            generatorAppCode(zip,"c");
+            generatorAppCode(zip, "a:b:c", "c");
             IOUtils.closeQuietly(zip);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

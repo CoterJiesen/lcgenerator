@@ -50,21 +50,6 @@ public class GenUtils {
         return templates;
     }
 
-    public static List<String> getAppTemplates() {
-        List<String> templates = new ArrayList<>();
-        templates.add("apptemplate/api-pom.xml.vm");
-        templates.add("apptemplate/app.properties.vm");
-        templates.add("apptemplate/Application.java.vm");
-        templates.add("apptemplate/application-dev.yml.vm");
-        templates.add("apptemplate/application-exc.yml.vm");
-        templates.add("apptemplate/bootstrap.yml.vm");
-        templates.add("apptemplate/logback.xml.vm");
-        templates.add("apptemplate/parent-pom.xml.vm");
-        templates.add("apptemplate/svc-pom.xml.vm");
-        return templates;
-
-    }
-
     /**
      * 生成代码
      */
@@ -149,14 +134,8 @@ public class GenUtils {
         map.put("hasInteger", hasInteger);
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package"));
-        map.put("moduleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
+        map.put("moduleName", moduleName.trim());
         map.put("author", StringUtils.isEmpty(author) ? "cdyfsz" : author.trim());
-        if (StringUtils.isNotEmpty(moduleName) && moduleName.contains(POINT)) {
-            String[] firstmoduleName = moduleName.split("\\.");
-            map.put("firstModuleName", firstmoduleName[0]);
-        } else {
-            map.put("firstModuleName", StringUtils.isEmpty(moduleName) ? "scf" : moduleName.trim());
-        }
         map.put("email", config.getString("email"));
         map.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
         VelocityContext context = new VelocityContext(map);
@@ -172,7 +151,7 @@ public class GenUtils {
             try {
                 //添加到zip
                 zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(),
-                        config.getString("package"), null != moduleName ? moduleName : config.getString("moduleName"))));
+                        config.getString("package"), moduleName)));
                 IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
@@ -255,33 +234,33 @@ public class GenUtils {
 
         //domain
         if (template.contains("DomainService.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "domain") + "service\\" + clzName.apply("DomainService.java");
+            fileName = pkgPath.apply("biz-svc", "domain") + "service/" + clzName.apply("DomainService.java");
         }
         if (template.contains("DomainEntity.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "domain") + "entity\\" + clzName.apply("DO.java");
+            fileName = pkgPath.apply("biz-svc", "domain") + "entity/" + clzName.apply("DO.java");
         }
         if (template.contains("DomainRepository.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "domain") + "repository\\" + iClzName.apply("DomainRepository.java");
+            fileName = pkgPath.apply("biz-svc", "domain") + "repository/" + iClzName.apply("DomainRepository.java");
         }
 
         //infrastructure/persistent
         if (template.contains("PersistentPO.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "infrastructure\\persistent") + "po\\" + clzName.apply("PO.java");
+            fileName = pkgPath.apply("biz-svc", "infrastructure/persistent") + "po/" + clzName.apply("PO.java");
         }
         if (template.contains("PersistentMapper.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "infrastructure\\persistent") + "mapper\\" + clzName.apply("Mapper.java");
+            fileName = pkgPath.apply("biz-svc", "infrastructure/persistent") + "mapper/" + clzName.apply("Mapper.java");
         }
         if (template.contains("PersistentPoService.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "infrastructure\\persistent") + clzName.apply("PoService.java");
+            fileName = pkgPath.apply("biz-svc", "infrastructure/persistent") + clzName.apply("PoService.java");
         }
 
         //infrastructure/repository 实现类 《=AppRepository、DomainRepository
         if (template.contains("InfrastructureAppRepository.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "infrastructure\\repository") + "apprepo\\" + clzName.apply("AppRepository.java");
+            fileName = pkgPath.apply("biz-svc", "infrastructure/repository") + "apprepo/" + clzName.apply("AppRepository.java");
         }
 
         if (template.contains("InfrastructureDomainRepository.java.vm")) {
-            fileName = pkgPath.apply("biz-svc", "infrastructure\\repository") + "domainrepo\\" + clzName.apply("DomainRepository.java");
+            fileName = pkgPath.apply("biz-svc", "infrastructure/repository") + "domainrepo/" + clzName.apply("DomainRepository.java");
         }
 
 

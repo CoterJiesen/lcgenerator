@@ -1,0 +1,31 @@
+package ${package}.infrastructure.repository.${moduleName}.domainrepo;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
+import ${package}.infrastructure.persistent.${moduleName}.${className}PoService;
+import ${package}.domain.${moduleName}.repository.I${className}DomainRepository;
+
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className}实体类对Domain层repository接口实现,提供读写功能
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Slf4j
+@Repository
+@RequiredArgsConstructor
+public class ${className}DomainRepository implements I${className}DomainRepository{
+    private final ${className}PoService ${classname}PoService;
+
+}
+

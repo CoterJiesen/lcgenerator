@@ -70,7 +70,7 @@ public class SysGeneratorService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         //生成代码
-        AppGen.generatorAppCode(zip, generatorEntity.getAuthor());
+        AppGen.generatorAppCode(zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }

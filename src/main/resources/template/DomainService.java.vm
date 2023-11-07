@@ -1,0 +1,30 @@
+package ${package}.domain.${moduleName}.service;
+
+import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ${package}.domain.${moduleName}.repository.I${className}DomainRepository;
+
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：${className}实体类对应service接口实现类
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
+@Slf4j
+@Service(value = "${className}DomainService")
+@RequiredArgsConstructor
+public class ${className}DomainService {
+
+    private final  I${className}DomainRepository i${className}DomainRepository;
+
+}

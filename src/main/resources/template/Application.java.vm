@@ -1,37 +1,35 @@
-package ${package};
+package ${package}.application.${moduleName};
 
-import club.newepoch.isf.BaseApplication;
-import club.newepoch.isf.code.reviewer.autoconfig.CodeReviewAutoConfig;
-import club.newepoch.isf.ext.feign.EnableIsfCustomFeign;
-import cn.net.cdsz.mybatis.common.annotation.EnableCdszMyBatis;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import cn.net.cdsz.mybatis.datasource.annotation.DataSource;
+import ${package}.infrastructure.constants.BizConstants;
+import ${package}.domain.${moduleName}.service.${className}DomainService;
+import ${package}.application.${moduleName}.repository.I${className}AppRepository;
 
 /**
  * 成都思致科技有限公司
- * 说明：启动类
  *
- * @author guqinghua
+ * @author ${author}
  * @version V1.0
- * @date 2023/10/10 10:00
- */
+ * 说明：${className}实体类对应Application接口
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${datetime}
+ **/
 @Slf4j
-@SpringBootApplication(exclude = {
-    CodeReviewAutoConfig.class,
-    org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration.class
-})
-@MapperScan("com.cdyfsz.svc.*.infrastructure.persistent.*.mapper")
-@EnableCdszMyBatis
-@EnableDiscoveryClient
-@EnableIsfCustomFeign
-@EnableFeignClients(basePackages = {"com.cdyfsz.*"})
-public class Application extends BaseApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(LoanConfigApplication.class, args);
-        log.info("启动成功。。。");
-    }
+@Component
+@RequiredArgsConstructor
+@DataSource(dsName = BizConstants.DS_NAME)
+public class ${className}Application {
+
+    private final I${className}AppRepository i${className}AppRepository;
+    private final ${className}DomainService ${classname}DomainService;
+
 }
+

@@ -1,0 +1,103 @@
+package ${package}.constants;
+
+/**
+ * 成都思致科技有限公司
+ *
+ * @author ${author}
+ * @date ${date}
+ * @version V1.0
+ * 说明：基础常量类
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ **/
+public class BaseConstants {
+    /**
+     * 字符串默认值
+     */
+    public static final String DEFAULT_STRING_VALUE = "--";
+
+    /**
+     * 等号 =
+     */
+    public static final String SYS_CONSTANT_EQUALS = "=";
+
+    /**
+     * 逗号 ,
+     */
+    public static final String SYS_CONSTANT_COMMA = ",";
+
+    /**
+     * 空格
+     */
+    public static final String SYS_CONSTANT_BLANK = " ";
+
+    /**
+     * 方括号 [
+     */
+    public static final String SYS_CONSTANT_BRACKETS_LEFT = "[";
+
+    /**
+     * 方括号 ]
+     */
+    public static final String SYS_CONSTANT_BRACKETS_RIGHT = "]";
+
+    /**
+     * 方括号 【
+     */
+    public static final String SYS_CONSTANT_BRACKETS_BOLD_LEFT = "【";
+
+    /**
+     * 方括号 】
+     */
+    public static final String SYS_CONSTANT_BRACKETS_BOLD_RIGHT = "】";
+
+    /**
+     * 圆括号 (
+     */
+    public static final String SYS_CONSTANT_PARENTHESES_LEFT = "(";
+
+    /**
+     * 圆括号 )
+     */
+    public static final String SYS_CONSTANT_PARENTHESES_RIGHT = ")";
+
+    /**
+     * 分号 ;
+     */
+    public static final String SYS_CONSTANT_SEMICOLON = ";";
+
+    /**
+     * 问号 ?
+     */
+    public static final String SYS_CONSTANT_QUESTION_MARK = "?";
+
+    /**
+     * 反斜杠
+     */
+    public static final String SYS_CONSTANT_BACKSLASH = "/";
+
+    /**
+     * 中划线 -
+     */
+    public static final String SYS_CONSTANT_MIDDLE_LINE = "-";
+
+    /**
+     * 下划线 -
+     */
+    public static final String SYS_CONSTANT_UNDER_LINE = "_";
+
+    /**
+     * 正则表达式 竖线 |
+     */
+    public static final String SYS_CONSTANT_REGEX_VERTICAL_LINE = "[|]";
+
+    /**
+     * 存放cookie中的用户token
+     */
+    public static final String COOKIE_TOKEN = "token";
+
+}

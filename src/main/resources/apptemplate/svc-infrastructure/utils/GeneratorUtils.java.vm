@@ -1,0 +1,51 @@
+package ${package}.infrastructure.utils;
+
+import club.newepoch.isf.dozer.generator.GeneratorImpl;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+/**
+ * 对象转换工具类 扩展
+ *
+ * @author ${author}
+ * @date ${date}
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ */
+@Slf4j
+@Component
+public class GeneratorUtils extends GeneratorImpl {
+
+    /**
+     * 原对象page集合 转 目标对象page集合
+     *
+     * @param s   原对象分页列表
+     * @param clz 目标对象
+     * @return 目标对象分页列表
+     */
+    public <T, S> Page<T> convert(IPage<S> s, Class<T> clz) {
+        if (log.isDebugEnabled()) {
+            log.debug("开始执行方法[convert]，请求参数s[{}],clz[{}]", s, clz);
+        }
+        if (s == null) {
+            if (log.isDebugEnabled()) {
+                log.debug("完成执行方法[convert],原对象信息为空,不处理");
+            }
+            return null;
+        }
+        Page<T> page = new Page<>();
+        page.setRecords(convert(s.getRecords(), clz));
+        page.setCurrent(s.getCurrent());
+        page.setSize(s.getSize());
+        page.setTotal(s.getTotal());
+        page.setPages(s.getPages());
+        if (log.isDebugEnabled()) {
+            log.debug("完成执行方法[convert]，返回值[{}]", page);
+        }
+        return page;
+    }
+
+}
