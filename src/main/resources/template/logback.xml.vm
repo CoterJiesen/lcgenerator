@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+
+        <!-- 为了能在kinaba中方便查看日志，将日志输出为json -->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "FromSource":"%X{fromSource}",
+                        "level": "%level",
+                        "TrackID":"%X{trackId}",
+                        "AddTime":"%date{\"yyyy-MM-dd'T'HH:mm:ss,SSSZ\"}",
+                        "thread": "%thread",
+                        "line_number": "%line",
+                        "SpanID":"%X{spanId}",
+                        "CalledMethod":"%X{reqMethod}@%X{apiUri}",
+                        "class_name": "%class",
+                        "ExceptionCode":"%X{errCode}",
+                        "Message":"%message",
+                        "StackTrace":"%exception{5}",
+                        "ExceptionName":"%X{errClasName}",
+                        "UserToken":"%X{token}",
+                        "OpId":"%X{opId}",
+                        "OpName":"%X{opName}",
+                        "OpOrgId":"%X{opOrgId}",
+                        "OpOrgName":"%X{opOrgName}",
+                        "ClientIp":"%X{clientIp}",
+                        "elapsed_time": "#asLong{%X{elapsedTime}}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="logfile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ALL</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                logs/greentown.financing.management.%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <TimeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>30MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+            <!-- 因为日志都归集到ELK了，就不再需要长久保留日志了 -->
+            <MaxHistory>7</MaxHistory>
+        </rollingPolicy>
+        <!-- 为了能在kinaba中方便查看日志，将日志输出为json -->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "FromSource":"%X{fromSource}",
+                        "level": "%level",
+                        "TrackID":"%X{trackId}",
+                        "AddTime":"%date{\"yyyy-MM-dd'T'HH:mm:ss,SSSZ\"}",
+                        "thread": "%thread",
+                        "line_number": "%line",
+                        "SpanID":"%X{spanId}",
+                        "CalledMethod":"%X{reqMethod}@%X{apiUri}",
+                        "class_name": "%class",
+                        "ExceptionCode":"%X{errCode}",
+                        "Message":"%message",
+                        "StackTrace":"%exception{5}",
+                        "ExceptionName":"%X{errClasName}",
+                        "UserToken":"%X{token}",
+                        "OpId":"%X{opId}",
+                        "OpName":"%X{opName}",
+                        "OpOrgId":"%X{opOrgId}",
+                        "OpOrgName":"%X{opOrgName}",
+                        "ClientIp":"%X{clientIp}",
+                        "elapsed_time": "#asLong{%X{elapsedTime}}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="history" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %n %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <!-- 日志输出至控制台，输出到日志文件，就不再单独记录到控制台了，避免重复日志搜集和分析 -->
+        <appender-ref ref="stdout"/>
+        <!-- 日志输出至文件 -->
+        <appender-ref ref="logfile"/>
+
+        <appender-ref ref="history"/>
+
+    </root>
+
+    <logger name="org.eclipse.jetty" level="TRACE"/>
+    <logger name="com.alibaba.nacos" level="WARN"/>
+    <!-- 本服务相关的日志记录，需要根据环境修改日志记录的级别 -->
+    <logger name="com.cdyfsz.base.svc.file" level="INFO"/>
+
+    <logger name="com.cdyfsz.base.svc.gateway.common.util.LogUtils" level="DEBUG">
+        <appender-ref ref="history"/>
+    </logger>
+
+</configuration>

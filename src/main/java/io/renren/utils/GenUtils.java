@@ -50,6 +50,21 @@ public class GenUtils {
         return templates;
     }
 
+    public static List<String> getAppTemplates() {
+        List<String> templates = new ArrayList<>();
+        templates.add("apptemplate/api-pom.xml.vm");
+        templates.add("apptemplate/app.properties.vm");
+        templates.add("apptemplate/Application.java.vm");
+        templates.add("apptemplate/application-dev.yml.vm");
+        templates.add("apptemplate/application-exc.yml.vm");
+        templates.add("apptemplate/bootstrap.yml.vm");
+        templates.add("apptemplate/logback.xml.vm");
+        templates.add("apptemplate/parent-pom.xml.vm");
+        templates.add("apptemplate/svc-pom.xml.vm");
+        return templates;
+
+    }
+
     /**
      * 生成代码
      */

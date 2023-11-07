@@ -12,6 +12,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import io.renren.dao.GeneratorDao;
 import io.renren.entity.GeneratorEntity;
+import io.renren.utils.AppGen;
 import io.renren.utils.GenUtils;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
@@ -61,6 +62,15 @@ public class SysGeneratorService {
             //生成代码
             GenUtils.generatorCode(table, columns, zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
         }
+        IOUtils.closeQuietly(zip);
+        return outputStream.toByteArray();
+    }
+
+    public byte[] generatorAppCode(GeneratorEntity generatorEntity) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zip = new ZipOutputStream(outputStream);
+        //生成代码
+        AppGen.generatorAppCode(zip, generatorEntity.getAuthor());
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }

@@ -1,0 +1,51 @@
+server:
+  port: 37666
+
+spring:
+  application:
+    name: ${appName}
+    version: '@project.version@'
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev #根据开发/测试进行修改
+    include: exc
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: nacos-headless:8848
+      discovery:
+        enabled: false
+        namespace: public
+        group: DEFAULT_GROUP
+        cluster-name: DEFAULT
+        weight: 10
+        log-name: ${spring.application.name}-nacos-naming.log
+        watch-delay: 30000
+        metadata:
+          version: ${spring.application.version}
+          env-tag: ${spring.application.env-tag:}
+          preserved:
+            register:
+              source: SPRING_CLOUD
+      config:
+        enabled: false
+        name: ${spring.application.name}
+        refresh-enabled: true
+        namespace: public
+        group: DEFAULT_GROUP
+        file-extension: yml
+        shared-configs:
+          - data-id: application.yml
+            group: DEFAULT_GROUP
+            refresh: true
+
+management:
+  health:
+    db:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'

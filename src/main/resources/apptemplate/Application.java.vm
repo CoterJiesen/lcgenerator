@@ -15,9 +15,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * 成都思致科技有限公司
  * 说明：启动类
  *
- * @author guqinghua
+ * @author ${author}
  * @version V1.0
- * @date 2023/10/10 10:00
+ * @date ${datetime}
  */
 @Slf4j
 @SpringBootApplication(exclude = {
@@ -31,7 +31,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.cdyfsz.*"})
 public class Application extends BaseApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LoanConfigApplication.class, args);
+        SpringApplication.run(Application.class, args);
         log.info("启动成功。。。");
     }
 }

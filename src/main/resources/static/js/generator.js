@@ -58,6 +58,14 @@ var vm = new Vue({
             }
             console.log(this.q);
             location.href = "sys/generator/code?tables=" + tableNames.join() + '&moduleName=' + this.q.moduleName + '&author=' + this.q.author;
+        },
+        generatorApp: function () {
+            var moduleName = this.q.moduleName
+            if (moduleName == null) {
+                return;
+            }
+            console.log(this.q);
+            location.href = "sys/generator/app-code?moduleName=" + this.q.moduleName + '&author=' + this.q.author;
         }
     }
 });

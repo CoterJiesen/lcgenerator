@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.cdyfsz</groupId>
+        <artifactId>${appName}-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>${appName}-api</artifactId>
+    <name>${appName}-api</name>
+    <packaging>jar</packaging>
+    <description>服务API</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>club.newepoch</groupId>
+            <artifactId>isf-boot-start</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

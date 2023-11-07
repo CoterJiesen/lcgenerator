@@ -61,4 +61,20 @@ public class SysGeneratorController {
 
         IOUtils.write(data, response.getOutputStream());
     }
+
+    /**
+     * 生成代码
+     */
+    @RequestMapping("/app-code")
+    public void appCode(String moduleName, String author, HttpServletResponse response) throws IOException {
+        GeneratorEntity generatorEntity = new GeneratorEntity( moduleName, author);
+        byte[] data = sysGeneratorService.generatorAppCode(generatorEntity);
+
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename=\"scfApp.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+
+        IOUtils.write(data, response.getOutputStream());
+    }
 }

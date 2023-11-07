@@ -33,6 +33,11 @@ public class GeneratorEntity {
     public GeneratorEntity() {
     }
 
+    public GeneratorEntity(String moduleName, String author) {
+        this.moduleName = moduleName;
+        this.author = author;
+    }
+
     public GeneratorEntity(String[] tables, String moduleName, String author) {
         this.tables = tables;
         this.moduleName = moduleName;

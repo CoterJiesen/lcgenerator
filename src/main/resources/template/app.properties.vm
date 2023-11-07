@@ -1,0 +1,2 @@
+app.version=@project.version@
+app.jar=@project.artifactId@-@project.version@.jar
