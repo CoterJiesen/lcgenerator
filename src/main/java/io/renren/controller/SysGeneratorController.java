@@ -8,6 +8,7 @@
 
 package io.renren.controller;
 
+import cn.hutool.core.util.StrUtil;
 import io.renren.entity.GeneratorEntity;
 import io.renren.service.SysGeneratorService;
 import io.renren.utils.PageUtils;
@@ -50,7 +51,10 @@ public class SysGeneratorController {
      * 生成代码
      */
     @RequestMapping("/code")
-    public void code(String tables, String moduleName, String author, HttpServletResponse response) throws IOException {
+    public void code(String tables, String moduleName, String author, HttpServletResponse response) throws Exception {
+        if(StrUtil.isBlank(moduleName) || moduleName.split(":").length > 1){
+            throw new Exception("只支持单模块生成");
+        }
         GeneratorEntity generatorEntity = new GeneratorEntity(tables.split(","), moduleName, author);
         byte[] data = sysGeneratorService.generatorCode(generatorEntity);
 

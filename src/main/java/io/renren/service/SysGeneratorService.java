@@ -61,23 +61,11 @@ public class SysGeneratorService {
             //查询列信息
             List<Map<String, String>> columns = queryColumns(tableName);
             //生成代码
-//            GenUtils.generatorCode(table, columns, zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
             TemplateGen.generatorCode(table, columns, zip, templateConfig, generatorEntity.getModuleName(), generatorEntity.getAuthor());
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }
-
-//    public byte[] generatorAppCode(GeneratorEntity generatorEntity) {
-//        System.out.println(templateYamlConfig);
-//
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//        ZipOutputStream zip = new ZipOutputStream(outputStream);
-//        //生成代码
-//        AppGen.generatorAppCode(zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
-//        IOUtils.closeQuietly(zip);
-//        return outputStream.toByteArray();
-//    }
 
     public byte[] generatorAppCode(GeneratorEntity generatorEntity) {
         System.out.println(templateConfig);
