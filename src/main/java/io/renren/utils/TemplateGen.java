@@ -47,14 +47,9 @@ public class TemplateGen {
      * 生成代码
      */
     public static void generatorAppCode(ZipOutputStream zip, TemplateConfig templateConfig, String moduleName, String author) {
-        //设置velocity资源加载器
-        Properties prop = new Properties();
-        prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        Velocity.init(prop);
         //封装模板数据
         VelocityContext ctx = new VelocityContext(templateConfig.getCtx());
         ctx.put("author",  StringUtils.isNotBlank(author) ? author.trim() : templateConfig.getCtx().getOrDefault("author","cdsz"));
-        ctx.put("appName", templateConfig.getRootPath());
         ctx.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
 
         //生成应用
@@ -127,10 +122,6 @@ public class TemplateGen {
             tableEntity.setPk(tableEntity.getColumns().get(0));
         }
 
-        //设置velocity资源加载器
-        Properties prop = new Properties();
-        prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        Velocity.init(prop);
         //封装模板数据
         VelocityContext ctx = new VelocityContext(templateConfig.getCtx());
         ctx.put("tableName", tableEntity.getTableName());
