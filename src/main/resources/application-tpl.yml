@@ -1,0 +1,112 @@
+template:
+  # 项目存放文件夹名字
+  rootPath: biz-svc-loan-config
+  #服务路径
+  svcPath: ${template.rootPath}
+  # api路径
+  apiPath: ${template.rootPath}-api
+  # 包路径
+  packagePath: com/cdyfsz/svc/config
+  #过滤表前缀
+  tablePrefix: tb_
+  # 共通模板变量
+  ctx:
+    #包名
+    package: com.cdyfsz.svc.config
+    author: chengfaying
+    appName: ${template.rootPath}
+
+  #生成服务代码
+  #按模块生成空文件夹（多个模块）${moduleName}根据传入的模块名替换
+  app:
+    #空文件夹（模块《moduleName》上下文文件夹及一些特殊的单文件加）
+    emptyFiles:
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/application/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/repository/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/interfaces/rest/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/resources/mapper/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/api/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/dto/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/vo/${moduleName}/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/config/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/constants/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/external/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/mq/.gitkeep
+      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/redis/.gitkeep
+    templateFiles:
+      # 模板路径（resource目录下）: 生成路径（项目）
+      "[apptemplate/parent-pom.xml.vm]": ${template.rootPath}/pom.xml
+      "[apptemplate/svc-pom.xml.vm]": ${template.rootPath}/${template.svcPath}/pom.xml
+      "[apptemplate/api-pom.xml.vm]": ${template.rootPath}/${template.apiPath}/pom.xml
+      "[apptemplate/Application.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/Application.java
+      # 文件夹支持 ：读取文件夹下的所有模板，渲染后放到配置的文件夹下（保持相对路径、并去掉模板后缀.vm）
+      "[apptemplate/apiconstants]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/constants
+      "[apptemplate/svcinfrastructure]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure
+      "[apptemplate/resources]": ${template.rootPath}/${template.svcPath}/src/main/resources
+  #逆向根据表生成业务代码
+  tables:
+    emptyFiles:
+    templateFiles:
+      "[template/Api.java.vm]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/api/${moduleName}/I${className}Api.java
+      "[template/ApiDTO.java.vm]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/dto/${moduleName}/${className}DTO.java
+      "[template/ApiVO.java.vm]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/vo/${moduleName}/${className}VO.java
+      "[template/Application.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/application/${moduleName}/${className}Application.java
+      "[template/AppRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/application/${moduleName}/repository/I${className}AppRepository.java
+      "[template/Controller.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/interfaces/rest/${moduleName}/${className}Controller.java
+      "[template/DomainEntity.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/entity/${className}DO.java
+      "[template/DomainRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/repository/I${className}DomainRepository.java
+      "[template/DomainService.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/service/${className}DomainService.java
+      "[template/InfrastructureAppRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/repository/${moduleName}/apprepo/${className}AppRepository.java
+      "[template/InfrastructureDomainRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/repository/${moduleName}/domainrepo/${className}DomainRepository.java
+      "[template/PersistentMapper.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/mapper/${className}Mapper.java
+      "[template/PersistentPO.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/po/${className}PO.java
+      "[template/PersistentPoService.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/${className}PoService.java
+
+  attrType:
+    tinyint: Integer
+    smallint: Integer
+    mediumint: Integer
+    int: Integer
+    integer: Integer
+    bigint: Long
+    float: Float
+    double: Double
+    decimal: BigDecimal
+    bit: Boolean
+    char: String
+    varchar: String
+    tinytext: String
+    text: String
+    mediumtext: String
+    longtext: String
+    date: Date
+    datetime: Date
+    timestamp: Date
+    NUMBER: Integer
+    INT: Integer
+    INTEGER: Integer
+    BINARY_INTEGER: Integer
+    LONG: String
+    FLOAT: Float
+    BINARY_FLOAT: Float
+    DOUBLE: Double
+    BINARY_DOUBLE: Double
+    DECIMAL: BigDecimal
+    CHAR: String
+    VARCHAR: String
+    VARCHAR2: String
+    NVARCHAR: String
+    NVARCHAR2: String
+    CLOB: String
+    BLOB: String
+    DATE: Date
+    DATETIME: Date
+    TIMESTAMP: Date
+    TIMESTAMP(6): Date
+    int8: Long
+    int4: Integer
+    int2: Integer
+    numeric: BigDecimal
+    json: String

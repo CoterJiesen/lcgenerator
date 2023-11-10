@@ -1,7 +1,6 @@
 package io.renren.utils;
 
 import cn.hutool.core.io.file.PathUtil;
-import com.sun.xml.internal.rngom.util.Uri;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -50,16 +49,16 @@ public class AppGen {
     public static List<String> getAppTemplates() {
         List<String> templates = new ArrayList<>();
         templates.add("apptemplate/api-pom.xml.vm");
-        templates.add("apptemplate/app.properties.vm");
+        templates.add("apptemplate/resources/app.properties.vm");
         templates.add("apptemplate/Application.java.vm");
-        templates.add("apptemplate/application-dev.yml.vm");
-        templates.add("apptemplate/application-exc.yml.vm");
-        templates.add("apptemplate/bootstrap.yml.vm");
-        templates.add("apptemplate/logback.xml.vm");
+        templates.add("apptemplate/resources/application-dev.yml.vm");
+        templates.add("apptemplate/resources/application-exc.yml.vm");
+        templates.add("apptemplate/resources/bootstrap.yml.vm");
+        templates.add("apptemplate/resources/logback.xml.vm");
         templates.add("apptemplate/parent-pom.xml.vm");
         templates.add("apptemplate/svc-pom.xml.vm");
-        templates.addAll(getFolderFileNames("apptemplate/api-constants"));
-        templates.addAll(getFolderFileNames("apptemplate/svc-infrastructure"));
+        templates.addAll(getFolderFileNames("apptemplate/apiconstants"));
+        templates.addAll(getFolderFileNames("apptemplate/svcinfrastructure"));
         return templates;
 
     }

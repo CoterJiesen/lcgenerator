@@ -1,6 +1,6 @@
 package ${package}.api.${moduleName};
 
-import ${package}.dto.common.Constants;
+import ${package}.constants.BizConstants;
 import io.swagger.annotations.Api;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Api(value = "${className}Api", tags = "${className}")
-@RequestMapping(Constants.SERVER_URI_API + "/${moduleName}")
-@FeignClient(value = Constants.SERVER_ID, url = Constants.FEIGN_CLIENT_URL, contextId = "I${className}Api")
+@RequestMapping(BizConstants.SERVER_URI_API + "/${moduleName}")
+@FeignClient(value = BizConstants.SERVER_ID, url = BizConstants.FEIGN_CLIENT_URL, contextId = "I${className}Api")
 public interface I${className}Api {
 
 }

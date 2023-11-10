@@ -1,0 +1,35 @@
+package ${package}.constants;
+
+/**
+ * 成都一方思致科技有限公司
+ *
+ * @author ${author}
+ * @version V1.0
+ * 说明：
+ * =========================================================================
+ * 变更履历：
+ * -------------------------------------------------------------------------
+ * 变更编号     变更时间    变更人   变更原因    变更内容
+ * -------------------------------------------------------------------------
+ * <p>
+ * @date ${date}
+ **/
+public class BizConstants {
+    /**
+     * 当前服务URI前缀
+     * todo 待修改为自己的
+     */
+    public static final String SERVER_URI_API = "/api/config";
+
+    /**
+     * 当前服务ID
+     */
+    public static final String SERVER_ID = "${appName}";
+
+    /**
+     * feign URL
+     * todo  去掉//
+     */
+    public static final String FEIGN_CLIENT_URL = "$//{uri." + BizConstants.SERVER_ID + ":}";
+
+}

@@ -10,12 +10,10 @@ package io.renren.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import io.renren.config.TemplateConfig;
 import io.renren.dao.GeneratorDao;
 import io.renren.entity.GeneratorEntity;
-import io.renren.utils.AppGen;
-import io.renren.utils.GenUtils;
-import io.renren.utils.PageUtils;
-import io.renren.utils.Query;
+import io.renren.utils.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +32,9 @@ import java.util.zip.ZipOutputStream;
 public class SysGeneratorService {
     @Autowired
     private GeneratorDao generatorDao;
+
+    @Autowired
+    TemplateConfig templateConfig;
 
     public PageUtils queryList(Query query) {
         Page<?> page = PageHelper.startPage(query.getPage(), query.getLimit());
@@ -60,17 +61,31 @@ public class SysGeneratorService {
             //查询列信息
             List<Map<String, String>> columns = queryColumns(tableName);
             //生成代码
-            GenUtils.generatorCode(table, columns, zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
+//            GenUtils.generatorCode(table, columns, zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
+            TemplateGen.generatorCode(table, columns, zip, templateConfig, generatorEntity.getModuleName(), generatorEntity.getAuthor());
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }
 
+//    public byte[] generatorAppCode(GeneratorEntity generatorEntity) {
+//        System.out.println(templateYamlConfig);
+//
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        ZipOutputStream zip = new ZipOutputStream(outputStream);
+//        //生成代码
+//        AppGen.generatorAppCode(zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
+//        IOUtils.closeQuietly(zip);
+//        return outputStream.toByteArray();
+//    }
+
     public byte[] generatorAppCode(GeneratorEntity generatorEntity) {
+        System.out.println(templateConfig);
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         //生成代码
-        AppGen.generatorAppCode(zip, generatorEntity.getModuleName(), generatorEntity.getAuthor());
+        TemplateGen.generatorAppCode(zip, templateConfig, generatorEntity.getModuleName(), generatorEntity.getAuthor());
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }
