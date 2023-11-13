@@ -9,6 +9,9 @@ template:
   packagePath: com/cdyfsz/svc/config
   #过滤表前缀
   tablePrefix: tb_
+  apiFullPackagePath: ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}
+  svcFullPackagePath: ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}
+  resFullPackagePath: ${template.rootPath}/${template.svcPath}/src/main/resources
   # 共通模板变量
   ctx:
     #包名
@@ -21,48 +24,48 @@ template:
   app:
     #空文件夹（模块《moduleName》上下文文件夹及一些特殊的单文件加）
     emptyFiles:
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/application/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/repository/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/interfaces/rest/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/resources/mapper/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/api/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/dto/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/vo/${moduleName}/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/config/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/constants/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/external/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/mq/.gitkeep
-      - ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/redis/.gitkeep
+      - ${template.svcFullPackagePath}/application/${moduleName}/.gitkeep
+      - ${template.svcFullPackagePath}/domain/${moduleName}/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/.gitkeep
+      - ${template.svcFullPackagePath}/interfaces/rest/${moduleName}/.gitkeep
+      - ${template.resFullPackagePath}/mapper/${moduleName}/.gitkeep
+      - ${template.apiFullPackagePath}/api/${moduleName}/.gitkeep
+      - ${template.apiFullPackagePath}/dto/${moduleName}/.gitkeep
+      - ${template.apiFullPackagePath}/vo/${moduleName}/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/config/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/constants/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/external/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/mq/.gitkeep
+      - ${template.svcFullPackagePath}/infrastructure/redis/.gitkeep
     templateFiles:
       # 模板路径（resource目录下）: 生成路径（项目）
-      "[apptemplate/parent-pom.xml.vm]": ${template.rootPath}/pom.xml
-      "[apptemplate/svc-pom.xml.vm]": ${template.rootPath}/${template.svcPath}/pom.xml
-      "[apptemplate/api-pom.xml.vm]": ${template.rootPath}/${template.apiPath}/pom.xml
-      "[apptemplate/Application.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/Application.java
+      "[template/app/parent-pom.xml.vm]": ${template.rootPath}/pom.xml
+      "[template/app/svc-pom.xml.vm]": ${template.rootPath}/${template.svcPath}/pom.xml
+      "[template/app/api-pom.xml.vm]": ${template.rootPath}/${template.apiPath}/pom.xml
+      "[template/app/Application.java.vm]": ${template.svcFullPackagePath}/Application.java
       # 文件夹支持 ：读取文件夹下的所有模板，渲染后放到配置的文件夹下（保持相对路径、并去掉模板后缀.vm）
-      "[apptemplate/apiconstants]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/constants
-      "[apptemplate/svcinfrastructure]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure
-      "[apptemplate/resources]": ${template.rootPath}/${template.svcPath}/src/main/resources
+      "[template/app/apiconstants]": ${template.apiFullPackagePath}/constants
+      "[template/app/svcinfrastructure]": ${template.svcFullPackagePath}/infrastructure
+      "[template/app/resources]": ${template.resFullPackagePath}
   #逆向根据表生成业务代码
   tables:
     emptyFiles:
     templateFiles:
-      "[template/Api.java.vm]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/api/${moduleName}/I${className}Api.java
-      "[template/ApiDTO.java.vm]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/dto/${moduleName}/${className}DTO.java
-      "[template/ApiVO.java.vm]": ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}/vo/${moduleName}/${className}VO.java
-      "[template/Application.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/application/${moduleName}/${className}Application.java
-      "[template/AppRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/application/${moduleName}/repository/I${className}AppRepository.java
-      "[template/Controller.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/interfaces/rest/${moduleName}/${className}Controller.java
-      "[template/DomainEntity.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/entity/${className}DO.java
-      "[template/DomainRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/repository/I${className}DomainRepository.java
-      "[template/DomainService.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/domain/${moduleName}/service/${className}DomainService.java
-      "[template/InfrastructureAppRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/repository/${moduleName}/apprepo/${className}AppRepository.java
-      "[template/InfrastructureDomainRepository.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/repository/${moduleName}/domainrepo/${className}DomainRepository.java
-      "[template/PersistentMapper.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/mapper/${className}Mapper.java
-      "[template/PersistentPO.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/po/${className}PO.java
-      "[template/PersistentPoService.java.vm]": ${template.rootPath}/${template.svcPath}/src/main/java/${template.packagePath}/infrastructure/persistent/${moduleName}/${className}PoService.java
+      "[template/tables/Api.java.vm]": ${template.apiFullPackagePath}/api/${moduleName}/I${className}Api.java
+      "[template/tables/ApiDTO.java.vm]": ${template.apiFullPackagePath}/dto/${moduleName}/${className}DTO.java
+      "[template/tables/ApiVO.java.vm]": ${template.apiFullPackagePath}/vo/${moduleName}/${className}VO.java
+      "[template/tables/Application.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/${className}Application.java
+      "[template/tables/AppRepository.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/repository/I${className}AppRepository.java
+      "[template/tables/Controller.java.vm]": ${template.svcFullPackagePath}/interfaces/rest/${moduleName}/${className}Controller.java
+      "[template/tables/DomainEntity.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/entity/${className}DO.java
+      "[template/tables/DomainRepository.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/repository/I${className}DomainRepository.java
+      "[template/tables/DomainService.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/service/${className}DomainService.java
+      "[template/tables/InfrastructureAppRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/apprepo/${className}AppRepository.java
+      "[template/tables/InfrastructureDomainRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/domainrepo/${className}DomainRepository.java
+      "[template/tables/PersistentMapper.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/mapper/${className}Mapper.java
+      "[template/tables/PersistentPO.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/po/${className}PO.java
+      "[template/tables/PersistentPoService.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/${className}PoService.java
 
   attrType:
     tinyint: Integer
