@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.cdyfsz</groupId>
-	<artifactId>scf-generator</artifactId>
+	<artifactId>code-generator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<description>renren-generator</description>
+	<description>code-generator</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,12 +24,13 @@
 		<commons.lang.version>2.6</commons.lang.version>
 		<commons.io.version>2.5</commons.io.version>
 		<commons.configuration.version>1.10</commons.configuration.version>
-		<fastjson.version>1.2.45</fastjson.version>
+		<fastjson.version>1.2.67</fastjson.version>
 		<velocity.version>1.7</velocity.version>
 		<pagehelper.spring.boot.version>1.2.5</pagehelper.spring.boot.version>
-		<mysql.version>5.1.38</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
+		<postgresql.version>42.2.27</postgresql.version>
 		<mssql.version>4.0</mssql.version>
-		<hutool.version>5.7.22</hutool.version>
+		<hutool.version>5.8.11</hutool.version>
 		<oracle.version>11.2.0.3</oracle.version>
 	</properties>
 
@@ -105,10 +106,11 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
+			<artifactId>hutool-core</artifactId>
 			<version>${hutool.version}</version>
 		</dependency>
 	</dependencies>

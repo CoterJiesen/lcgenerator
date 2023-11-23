@@ -1,12 +1,12 @@
 template:
   # 项目存放文件夹名字
-  rootPath: biz-svc-loan-config
+  rootPath: base-svc-financing-scheme
+  # 包路径
+  packagePath: cn/net/cdsz/svc/financingscheme
   #服务路径
   svcPath: ${template.rootPath}
   # api路径
   apiPath: ${template.rootPath}-api
-  # 包路径
-  packagePath: com/cdyfsz/svc/config
   #过滤表前缀
   tablePrefix: tb_
   apiFullPackagePath: ${template.rootPath}/${template.apiPath}/src/main/java/${template.packagePath}
@@ -15,7 +15,7 @@ template:
   # 共通模板变量
   ctx:
     #包名
-    package: com.cdyfsz.svc.config
+    package: cn.net.cdsz.svc.financingscheme
     author: chengfaying
     appName: ${template.rootPath}
 
