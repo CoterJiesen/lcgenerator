@@ -1,4 +1,4 @@
-package ${package}.domain.${moduleName}.repository;
+package ${keyDomainRepository};
 
 /**
  * 成都思致科技有限公司

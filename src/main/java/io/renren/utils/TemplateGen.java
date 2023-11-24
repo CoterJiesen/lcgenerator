@@ -18,6 +18,8 @@ import org.apache.velocity.app.VelocityEngine;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -211,11 +213,24 @@ public class TemplateGen {
             ctx.put("moduleName", modules[0]);
         }
         Map<String, String> fileTemplatePathMap = getAllTemplateAndPath(config.getTemplateFiles());
+        //2.1 获取所有模板文件的包名
+        fileTemplatePathMap.forEach((k, v) -> {
+            String[] pathKey = v.split("@");
+            if(pathKey.length ==2){
+                //渲染路径
+                sw.clear();;
+                engine.evaluate(ctx, sw, "", getPackageName(pathKey[0]));
+                ctx.put(pathKey[1], sw.toString());
+                fileTemplatePathMap.put(k, pathKey[0]);
+            }
+        });
+        //2.2 填充模板和路径
         fileTemplatePathMap.forEach((k, v) -> {
             //渲染路径
             sw.clear();;
             engine.evaluate(ctx, sw, "", v);
             String path = sw.toString();
+
             //渲染模板
             sw.clear();;
             Template tpl = Velocity.getTemplate(k, "UTF-8");
@@ -225,6 +240,17 @@ public class TemplateGen {
         IOUtils.closeQuietly(sw);
         addZipfileList(zip, fileMap);
     }
+
+    public static String getPackageName(String fileUrl){
+        if(StringUtils.isBlank(fileUrl)|| !fileUrl.contains("/src/main/java/")){
+            return "";
+        }
+        Path path = Paths.get(fileUrl);
+        String filePath = path.getParent().toString();  //获取文件路径
+        filePath = filePath.substring(filePath.substring(0, filePath.indexOf("java")).length()+5);
+        return filePath.replace("/",".").replace("\\",".");
+    }
+
 
 
     /**

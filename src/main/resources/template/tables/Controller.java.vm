@@ -1,12 +1,12 @@
-package ${package}.interfaces.rest.${moduleName};
+package ${keyController};
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import club.newepoch.isf.api.BaseApi;
-import ${package}.api.${moduleName}.I${className}Api;
-import ${package}.application.${moduleName}.${className}Application;
+import ${keyApi}.I${className}Api;
+import ${keyApplication}.${className}Application;
 
 
 /**

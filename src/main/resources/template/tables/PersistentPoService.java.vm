@@ -1,8 +1,8 @@
-package ${package}.infrastructure.persistent.${moduleName};
+package ${keyPoService};
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import ${package}.infrastructure.persistent.${moduleName}.po.${className}PO;
-import ${package}.infrastructure.persistent.${moduleName}.mapper.${className}Mapper;
+import ${keyPO}.${className}PO;
+import ${keyMapper}.${className}Mapper;
 import org.springframework.stereotype.Service;
 
 

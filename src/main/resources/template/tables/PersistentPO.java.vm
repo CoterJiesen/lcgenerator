@@ -1,4 +1,4 @@
-package ${package}.infrastructure.persistent.${moduleName}.po;
+package ${keyPO};
 
 
 import java.util.Date;

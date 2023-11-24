@@ -1,4 +1,4 @@
-package ${package}.domain.${moduleName}.entity;
+package ${keyDO};
 
 
 import java.io.Serializable;
