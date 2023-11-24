@@ -1,4 +1,4 @@
-package ${keyAppRepository};
+package ${packageAppRepository};
 
 /**
  * 成都思致科技有限公司

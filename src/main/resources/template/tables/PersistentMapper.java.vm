@@ -1,7 +1,7 @@
-package ${keyMapper};
+package ${packageMapper};
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import ${keyPO}.${className}PO;
+import ${packagePO}.${className}PO;
 
 
 /**

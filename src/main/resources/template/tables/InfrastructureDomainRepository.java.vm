@@ -1,10 +1,10 @@
-package ${keyInsDomainRepository};
+package ${packageInsDomainRepository};
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import ${keyPoService}.${className}PoService;
-import ${keyDomainRepository}.I${className}DomainRepository;
+import ${packagePoService}.${className}PoService;
+import ${packageDomainRepository}.I${className}DomainRepository;
 
 
 /**

@@ -1,4 +1,4 @@
-package ${keyApi};
+package ${packageApi};
 
 import ${package}.constants.BizConstants;
 import io.swagger.annotations.Api;

@@ -52,20 +52,20 @@ template:
   tables:
     emptyFiles:
     templateFiles:
-      "[template/tables/Api.java.vm]": ${template.apiFullPackagePath}/api/${moduleName}/I${className}Api.java@keyApi
-      "[template/tables/ApiDTO.java.vm]": ${template.apiFullPackagePath}/dto/${moduleName}/${className}DTO.java@keyDTO
-      "[template/tables/ApiVO.java.vm]": ${template.apiFullPackagePath}/vo/${moduleName}/${className}VO.java@keyVO
-      "[template/tables/Application.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/${className}Application.java@keyApplication
-      "[template/tables/AppRepository.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/repository/I${className}AppRepository.java@keyAppRepository
-      "[template/tables/Controller.java.vm]": ${template.svcFullPackagePath}/interfaces/rest/${moduleName}/${className}Controller.java@keyController
-      "[template/tables/DomainEntity.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/entity/${className}DO.java@keyDO
-      "[template/tables/DomainRepository.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/repository/I${className}DomainRepository.java@keyDomainRepository
-      "[template/tables/DomainService.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/service/${className}DomainService.java@keyDomainService
-      "[template/tables/InfrastructureAppRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/apprepo/${className}AppRepository.java@keyInsAppRepository
-      "[template/tables/InfrastructureDomainRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/domainrepo/${className}DomainRepository.java@keyInsDomainRepository
-      "[template/tables/PersistentMapper.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/mapper/${className}Mapper.java@keyMapper
-      "[template/tables/PersistentPO.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/po/${className}PO.java@keyPO
-      "[template/tables/PersistentPoService.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/${className}PoService.java@keyPoService
+      "[template/tables/Api.java.vm]": ${template.apiFullPackagePath}/api/${moduleName}/I${className}Api.java@packageApi
+      "[template/tables/ApiDTO.java.vm]": ${template.apiFullPackagePath}/dto/${moduleName}/${className}DTO.java@packageDTO
+      "[template/tables/ApiVO.java.vm]": ${template.apiFullPackagePath}/vo/${moduleName}/${className}VO.java@packageVO
+      "[template/tables/Application.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/${className}Application.java@packageApplication
+      "[template/tables/AppRepository.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/repository/I${className}AppRepository.java@packageAppRepository
+      "[template/tables/Controller.java.vm]": ${template.svcFullPackagePath}/interfaces/rest/${moduleName}/${className}Controller.java@packageController
+      "[template/tables/DomainEntity.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/entity/${className}DO.java@packageDO
+      "[template/tables/DomainRepository.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/repository/I${className}DomainRepository.java@packageDomainRepository
+      "[template/tables/DomainService.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/service/${className}DomainService.java@packageDomainService
+      "[template/tables/InfrastructureAppRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/apprepo/${className}AppRepository.java@packageInsAppRepository
+      "[template/tables/InfrastructureDomainRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/domainrepo/${className}DomainRepository.java@packageInsDomainRepository
+      "[template/tables/PersistentMapper.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/mapper/${className}Mapper.java@packageMapper
+      "[template/tables/PersistentPO.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/po/${className}PO.java@packagePO
+      "[template/tables/PersistentPoService.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/${className}PoService.java@packagePoService
 
   attrType:
     tinyint: Integer

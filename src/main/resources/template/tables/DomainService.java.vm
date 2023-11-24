@@ -1,9 +1,9 @@
-package ${keyDomainService};
+package ${packageDomainService};
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ${keyDomainRepository}.I${className}DomainRepository;
+import ${packageDomainRepository}.I${className}DomainRepository;
 
 
 /**

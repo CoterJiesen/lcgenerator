@@ -1,10 +1,10 @@
-package ${keyInsAppRepository};
+package ${packageInsAppRepository};
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import ${keyPoService}.${className}PoService;
-import ${keyAppRepository}.I${className}AppRepository;
+import ${packagePoService}.${className}PoService;
+import ${packageAppRepository}.I${className}AppRepository;
 
 
 /**

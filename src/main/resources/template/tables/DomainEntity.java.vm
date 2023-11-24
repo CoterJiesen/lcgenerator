@@ -1,4 +1,4 @@
-package ${keyDO};
+package ${packageDO};
 
 
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package ${keyPO};
+package ${packagePO};
 
 
 import java.util.Date;
