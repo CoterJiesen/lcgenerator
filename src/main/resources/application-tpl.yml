@@ -52,6 +52,7 @@ template:
   tables:
     emptyFiles:
     templateFiles:
+      # @package* 根据路径解析为包名， 在模板中需要对应配置即可
       "[template/tables/Api.java.vm]": ${template.apiFullPackagePath}/api/${moduleName}/I${className}Api.java@packageApi
       "[template/tables/ApiDTO.java.vm]": ${template.apiFullPackagePath}/dto/${moduleName}/${className}DTO.java@packageDTO
       "[template/tables/ApiVO.java.vm]": ${template.apiFullPackagePath}/vo/${moduleName}/${className}VO.java@packageVO
