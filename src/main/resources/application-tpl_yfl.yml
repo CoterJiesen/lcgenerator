@@ -1,8 +1,8 @@
 template:
-  # 项目存放文件夹名字  todo
-  rootPath: base-svc-financing-scheme
+  # 项目存放文件夹名字 todo
+  rootPath: biz-svc-ecc
   # 包路径 todo
-  packagePath: cn/net/cdsz/svc/financingscheme
+  packagePath: cn/net/cdsz/svc/yfl
   #服务路径
   svcPath: ${template.rootPath}
   # api路径
@@ -15,7 +15,7 @@ template:
   # 共通模板变量
   ctx:
     #包名 todo
-    package: cn.net.cdsz.svc.financingscheme
+    package: cn.net.cdsz.svc.yfl
     author: chengfaying
     appName: ${template.rootPath}
 

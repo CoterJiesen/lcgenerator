@@ -1,7 +1,7 @@
 template:
-  # 项目存放文件夹名字  todo
+  # 项目存放文件夹名字
   rootPath: base-svc-financing-scheme
-  # 包路径 todo
+  # 包路径
   packagePath: cn/net/cdsz/svc/financingscheme
   #服务路径
   svcPath: ${template.rootPath}
@@ -14,7 +14,7 @@ template:
   resFullPackagePath: ${template.rootPath}/${template.svcPath}/src/main/resources
   # 共通模板变量
   ctx:
-    #包名 todo
+    #包名
     package: cn.net.cdsz.svc.financingscheme
     author: chengfaying
     appName: ${template.rootPath}
@@ -58,15 +58,15 @@ template:
       "[template/tables/ApiVO.java.vm]": ${template.apiFullPackagePath}/vo/${moduleName}/${className}VO.java@packageVO
       "[template/tables/Application.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/${className}Application.java@packageApplication
       "[template/tables/AppRepository.java.vm]": ${template.svcFullPackagePath}/application/${moduleName}/repository/I${className}AppRepository.java@packageAppRepository
-      "[template/tables/Controller.java.vm]": ${template.svcFullPackagePath}/interfaces/rest/${moduleName}/${className}Controller.java@packageController
-      "[template/tables/DomainEntity.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/entity/${className}DO.java@packageDO
+      "[template/tables/Controller.java.vm]": ${template.svcFullPackagePath}/interfaces/${moduleName}/${className}Controller.java@packageController
+      "[template/tables/DomainEntity.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/entity/${className}Entity.java@packageDO
       "[template/tables/DomainRepository.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/repository/I${className}DomainRepository.java@packageDomainRepository
       "[template/tables/DomainService.java.vm]": ${template.svcFullPackagePath}/domain/${moduleName}/service/${className}DomainService.java@packageDomainService
-      "[template/tables/InfrastructureAppRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/apprepo/${className}AppRepository.java@packageInsAppRepository
-      "[template/tables/InfrastructureDomainRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/repository/${moduleName}/domainrepo/${className}DomainRepository.java@packageInsDomainRepository
-      "[template/tables/PersistentMapper.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/mapper/${className}Mapper.java@packageMapper
-      "[template/tables/PersistentPO.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/po/${className}PO.java@packagePO
-      "[template/tables/PersistentPoService.java.vm]": ${template.svcFullPackagePath}/infrastructure/persistent/${moduleName}/${className}PoService.java@packagePoService
+      "[template/tables/InfrastructureAppRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/${moduleName}/repository/apprepo/${className}AppRepository.java@packageInsAppRepository
+      "[template/tables/InfrastructureDomainRepository.java.vm]": ${template.svcFullPackagePath}/infrastructure/${moduleName}/repository/domainrepo/${className}DomainRepository.java@packageInsDomainRepository
+      "[template/tables/PersistentMapper.java.vm]": ${template.svcFullPackagePath}/infrastructure/${moduleName}/persistent/mapper/${className}Mapper.java@packageMapper
+      "[template/tables/PersistentPO.java.vm]": ${template.svcFullPackagePath}/infrastructure/${moduleName}/persistent/po/${className}PO.java@packagePO
+      "[template/tables/PersistentPoService.java.vm]": ${template.svcFullPackagePath}/infrastructure/${moduleName}/persistent/${className}PoService.java@packagePoService
 
   attrType:
     tinyint: Integer
